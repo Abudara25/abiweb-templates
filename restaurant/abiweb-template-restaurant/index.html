@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>[NOM DU RESTAURANT] — [VILLE]</title>
+  <meta name="description" content="[NOM DU RESTAURANT] — [TYPE DE CUISINE] à [VILLE]. Réservez votre table."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary:    #16a34a;
+      --primary-dk: #15803d;
+      --primary-lt: #f0fdf4;
+      --primary-md: #dcfce7;
+      --text:       #111827;
+      --muted:      #6b7280;
+      --bg:         #ffffff;
+      --bg2:        #fafaf8;
+      --bg3:        #f5f5f0;
+      --border:     #e5e7eb;
+      --radius:     10px;
+      --max:        1100px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 99; background: #fff; border-bottom: 1px solid var(--border); height: 64px; display: flex; align-items: center; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--text); }
+    .nav-logo span { color: var(--primary); font-style: italic; }
+    .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+    .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--muted); transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-btn { background: var(--primary); color: #fff; padding: 9px 22px; border-radius: var(--radius); font-size: 0.875rem; font-weight: 600; transition: background 0.15s; display: inline-block; }
+    .nav-btn:hover { background: var(--primary-dk); }
+
+    /* HERO */
+    .hero { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 80px 0 72px; }
+    .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--primary-md); color: var(--primary); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.15; margin-bottom: 8px; }
+    .hero h1 em { font-style: italic; color: var(--primary); }
+    .hero-type { font-size: 0.95rem; color: var(--muted); margin-bottom: 16px; font-style: italic; }
+    .hero-slogan { font-size: 1.05rem; color: var(--muted); margin-bottom: 32px; line-height: 1.65; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary { background: var(--primary); color: #fff; padding: 12px 28px; border-radius: var(--radius); font-weight: 600; font-size: 0.9rem; transition: background 0.15s; display: inline-block; }
+    .btn-primary:hover { background: var(--primary-dk); }
+    .btn-outline { background: #fff; color: var(--text); border: 1px solid var(--border); padding: 11px 27px; border-radius: var(--radius); font-weight: 500; font-size: 0.9rem; transition: border-color 0.15s; display: inline-block; }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+    .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .stat-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-align: center; }
+    .stat-n { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--primary); line-height: 1; }
+    .stat-l { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+
+    /* SECTIONS */
+    section { padding: 72px 0; }
+    .section-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; margin-bottom: 40px; }
+    .section-title em { font-style: italic; color: var(--primary); }
+
+    /* CARTE */
+    #carte { background: var(--bg); }
+    .carte-tabs { display: flex; gap: 0; margin-bottom: 32px; border-bottom: 1px solid var(--border); }
+    .carte-tab { font-size: 0.875rem; font-weight: 500; padding: 10px 24px; cursor: pointer; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s; }
+    .carte-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .carte-tab:hover { color: var(--text); }
+    .carte-categorie { display: none; }
+    .carte-categorie.active { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .plat-item { background: #fff; padding: 22px 24px; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; transition: background 0.15s; }
+    .plat-item:hover { background: var(--bg2); }
+    .plat-nom { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+    .plat-desc { font-size: 0.825rem; color: var(--muted); line-height: 1.55; font-style: italic; }
+    .plat-prix { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--primary); white-space: nowrap; }
+
+    /* MENUS */
+    #menus { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .menus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .menu-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; display: flex; flex-direction: column; position: relative; transition: box-shadow 0.2s; }
+    .menu-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
+    .menu-card.feat { border: 2px solid var(--primary); box-shadow: 0 4px 20px rgba(22,163,74,0.1); }
+    .menu-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 4px 16px; border-radius: 999px; white-space: nowrap; }
+    .menu-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .menu-nom { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
+    .menu-prix { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; color: var(--primary); line-height: 1; margin: 10px 0 4px; }
+    .menu-prix span { font-size: 1rem; }
+    .menu-period { font-size: 0.78rem; color: var(--muted); margin-bottom: 24px; }
+    .menu-divider { height: 1px; background: var(--border); margin-bottom: 20px; }
+    .menu-contenu { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; margin-bottom: 28px; }
+    .menu-contenu li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.875rem; color: var(--text); }
+    .menu-contenu li::before { content: '✓'; color: var(--primary); font-weight: 700; flex-shrink: 0; }
+    .menu-btn { display: block; text-align: center; padding: 11px; border-radius: var(--radius); font-weight: 600; font-size: 0.9rem; border: 1.5px solid var(--border); color: var(--text); transition: all 0.15s; cursor: pointer; }
+    .menu-card.feat .menu-btn { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .menu-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    /* RÉSERVATION (Standard + Premium) */
+    #reservation { background: var(--primary); padding: 48px 0; display: none; }
+    .resa-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .resa-text { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: #fff; }
+    .resa-text span { display: block; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 400; opacity: 0.8; margin-top: 4px; }
+    .btn-white { background: #fff; color: var(--primary); padding: 12px 28px; border-radius: var(--radius); font-weight: 700; font-size: 0.9rem; display: inline-block; transition: opacity 0.15s; }
+    .btn-white:hover { opacity: 0.9; }
+
+    /* CONTACT */
+    #contact { background: var(--bg2); border-top: 1px solid var(--border); }
+    .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .ci { display: flex; align-items: flex-start; gap: 16px; background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; }
+    .ci-icon { width: 40px; height: 40px; background: var(--primary-lt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .ci-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 3px; }
+    .ci-val { font-size: 0.925rem; font-weight: 500; }
+    .ci-val a { color: var(--primary); }
+
+    /* RÉSEAUX (Standard + Premium) */
+    #reseaux { background: var(--bg); border-top: 1px solid var(--border); padding: 36px 0; display: none; }
+    .reseaux-inner { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .reseaux-label { font-size: 0.875rem; font-weight: 600; color: var(--muted); }
+    .reseaux-links { display: flex; gap: 10px; }
+    .reseau-btn { padding: 8px 18px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.85rem; font-weight: 500; transition: all 0.15s; }
+    .reseau-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* GALERIE (Premium) */
+    #galerie { background: var(--bg2); border-top: 1px solid var(--border); display: none; }
+    .galerie-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .galerie-item { aspect-ratio: 1; background: var(--bg3); border-radius: 8px; overflow: hidden; }
+    .galerie-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .galerie-item:hover img { transform: scale(1.05); }
+
+    /* DOCUMENTS (Premium) */
+    #documents { background: var(--bg); border-top: 1px solid var(--border); display: none; }
+    .docs-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .doc-item { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; background: #fff; border-bottom: 1px solid var(--border); }
+    .doc-item:last-child { border: none; }
+    .doc-titre { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; }
+    .doc-btn { background: var(--primary-lt); color: var(--primary); padding: 7px 18px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; transition: background 0.15s; display: inline-block; }
+    .doc-btn:hover { background: var(--primary-md); }
+
+    /* FOOTER */
+    footer { background: var(--text); padding: 32px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #fff; }
+    .footer-logo span { color: var(--primary); font-style: italic; }
+    .footer-info { font-size: 0.8rem; color: rgba(255,255,255,0.45); line-height: 1.7; }
+    .footer-info a { color: rgba(255,255,255,0.6); }
+    .footer-info a:hover { color: #fff; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      section { padding: 48px 0; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .carte-categorie.active, .menus-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      #reservation { padding: 40px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container nav-inner">
+    <div class="nav-logo" id="nav-nom">Le <span>Restaurant</span></div>
+    <ul class="nav-links">
+      <li><a href="#carte">La carte</a></li>
+      <li><a href="#menus">Menus</a></li>
+      <li id="nav-resa-link" style="display:none"><a href="#reservation">Réserver</a></li>
+      <li><a href="#contact">Infos pratiques</a></li>
+    </ul>
+    <a href="#reservation" class="nav-btn" id="nav-cta">Réserver une table</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow" id="hero-type">[TYPE DE CUISINE]</div>
+        <h1 id="hero-title">[NOM DU <em>RESTAURANT</em>]</h1>
+        <div class="hero-type" id="hero-ville-annee">[VILLE] · Ouvert depuis [ANNÉE]</div>
+        <p class="hero-slogan" id="hero-slogan">[Accroche du restaurant]</p>
+        <div class="hero-btns">
+          <a href="#reservation" class="btn-primary" id="hero-btn-resa">Réserver une table</a>
+          <a href="#carte" class="btn-outline">Voir la carte</a>
+        </div>
+      </div>
+      <div class="hero-stats" id="hero-stats"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CARTE -->
+<section id="carte">
+  <div class="container">
+    <div class="section-label">Menu</div>
+    <div class="section-title">Notre <em>carte</em></div>
+    <div class="carte-tabs" id="carte-tabs"></div>
+    <div id="carte-categories"></div>
+  </div>
+</section>
+
+<!-- MENUS -->
+<section id="menus">
+  <div class="container">
+    <div class="section-label">Formules</div>
+    <div class="section-title">Nos <em>menus</em></div>
+    <div class="menus-grid" id="menus-grid"></div>
+  </div>
+</section>
+
+<!-- RÉSERVATION (Standard + Premium) -->
+<div id="reservation">
+  <div class="container">
+    <div class="resa-inner">
+      <div class="resa-text">
+        Réservez votre table
+        <span>Confirmation immédiate · Annulation gratuite 24h avant</span>
+      </div>
+      <div id="resa-btns"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Infos pratiques</div>
+    <div class="section-title">Nous <em>trouver</em></div>
+    <div class="contact-grid">
+      <div class="ci"><div class="ci-icon">📍</div><div><div class="ci-label">Adresse</div><div class="ci-val" id="c-adresse">[ADRESSE]</div></div></div>
+      <div class="ci"><div class="ci-icon">📞</div><div><div class="ci-label">Réservations</div><div class="ci-val"><a id="c-tel" href="#">[TEL]</a></div></div></div>
+      <div class="ci"><div class="ci-icon">🕐</div><div><div class="ci-label">Horaires</div><div class="ci-val" id="c-horaires">[HORAIRES]</div></div></div>
+      <div class="ci"><div class="ci-icon">📅</div><div><div class="ci-label">Fermeture</div><div class="ci-val" id="c-fermeture">[FERMETURE]</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉSEAUX (Standard + Premium) -->
+<div id="reseaux">
+  <div class="container">
+    <div class="reseaux-inner">
+      <div class="reseaux-label">Suivez-nous</div>
+      <div class="reseaux-links" id="reseaux-links"></div>
+    </div>
+  </div>
+</div>
+
+<!-- GALERIE (Premium) -->
+<section id="galerie">
+  <div class="container">
+    <div class="section-label">Photos</div>
+    <div class="section-title">Notre <em>restaurant</em></div>
+    <div class="galerie-grid" id="galerie-grid"></div>
+  </div>
+</section>
+
+<!-- DOCUMENTS (Premium) -->
+<section id="documents">
+  <div class="container">
+    <div class="section-label">Téléchargements</div>
+    <div class="section-title">Cartes & <em>menus</em></div>
+    <div class="docs-list" id="docs-list"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo" id="footer-logo">Le <span>Restaurant</span></div>
+      <div class="footer-info">
+        <span id="footer-type">[Type de cuisine]</span> · <span id="footer-ville">[VILLE]</span><br>
+        Site réalisé par <a href="https://abiweb.fr" target="_blank">AbiWeb</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="site-content.js"></script>
+<script>
+(async () => {
+  const c = await window.loadSiteContent();
+  const f = window.FORMULE;
+
+  document.documentElement.style.setProperty('--primary', c.restaurant.couleurPrimaire);
+
+  // Nom
+  const nom = c.restaurant.nom;
+  const words = nom.trim().split(' ');
+  const w1 = words.slice(0, Math.ceil(words.length/2)).join(' ');
+  const w2 = words.slice(Math.ceil(words.length/2)).join(' ') || w1;
+  document.getElementById('nav-nom').innerHTML = w1 + ' <span>' + w2 + '</span>';
+  document.getElementById('footer-logo').innerHTML = w1 + ' <span>' + w2 + '</span>';
+  document.getElementById('hero-title').innerHTML = w1 + ' <em>' + (w2 || w1) + '</em>';
+  document.getElementById('hero-type').textContent = c.restaurant.type;
+  document.getElementById('hero-ville-annee').textContent = c.restaurant.ville + ' · Ouvert depuis ' + c.restaurant.annee;
+  document.getElementById('hero-slogan').textContent = c.restaurant.slogan;
+  document.getElementById('footer-type').textContent = c.restaurant.type;
+  document.getElementById('footer-ville').textContent = c.restaurant.ville;
+  document.title = c.restaurant.nom + ' — ' + c.restaurant.ville;
+
+  // Stats
+  document.getElementById('hero-stats').innerHTML = c.stats.map(s =>
+    `<div class="stat-card"><div class="stat-n">${s.valeur}</div><div class="stat-l">${s.label}</div></div>`
+  ).join('');
+
+  // Contact
+  document.getElementById('c-adresse').textContent   = c.contact.adresse;
+  document.getElementById('c-tel').textContent       = c.contact.telephone;
+  document.getElementById('c-tel').href              = 'tel:' + c.contact.telephone.replace(/\s/g,'');
+  document.getElementById('c-horaires').textContent  = c.contact.horaires;
+  document.getElementById('c-fermeture').textContent = c.contact.fermeture;
+
+  // Carte avec onglets
+  const tabsEl = document.getElementById('carte-tabs');
+  const catsEl = document.getElementById('carte-categories');
+  c.categories.forEach((cat, i) => {
+    const tab = document.createElement('div');
+    tab.className = 'carte-tab' + (i === 0 ? ' active' : '');
+    tab.textContent = cat.nom;
+    tab.onclick = () => {
+      document.querySelectorAll('.carte-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.carte-categorie').forEach(c => c.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('cat-' + i).classList.add('active');
+    };
+    tabsEl.appendChild(tab);
+    const div = document.createElement('div');
+    div.className = 'carte-categorie' + (i === 0 ? ' active' : '');
+    div.id = 'cat-' + i;
+    div.innerHTML = cat.plats.map(p => `
+      <div class="plat-item">
+        <div><div class="plat-nom">${p.nom}</div><div class="plat-desc">${p.description}</div></div>
+        <div class="plat-prix">${p.prix}€</div>
+      </div>
+    `).join('');
+    catsEl.appendChild(div);
+  });
+
+  // Menus
+  document.getElementById('menus-grid').innerHTML = c.menus.map(m => `
+    <div class="menu-card${m.vedette ? ' feat' : ''}">
+      ${m.vedette ? '<div class="menu-badge">Notre recommandation</div>' : ''}
+      <div class="menu-label">Formule</div>
+      <div class="menu-nom">${m.nom}</div>
+      <div class="menu-prix"><span>€</span>${m.prix}</div>
+      <div class="menu-period">par personne · tout compris</div>
+      <div class="menu-divider"></div>
+      <ul class="menu-contenu">${m.contenu.map(l => `<li>${l}</li>`).join('')}</ul>
+      <div class="menu-btn">${c.lienReservation ? `<a href="${c.lienReservation}" target="_blank" style="color:inherit">Réserver</a>` : 'Nous appeler'}</div>
+    </div>
+  `).join('');
+
+  // Standard + Premium
+  if (f === 'standard' || f === 'premium') {
+    document.getElementById('nav-resa-link').style.display = 'block';
+    if (c.lienReservation) {
+      document.getElementById('reservation').style.display = 'block';
+      document.getElementById('resa-btns').innerHTML = `<a href="${c.lienReservation}" target="_blank" class="btn-white">Réserver en ligne</a>`;
+    }
+    const rx = [];
+    if (c.lienFacebook)  rx.push(`<a href="${c.lienFacebook}"  target="_blank" class="reseau-btn">Facebook</a>`);
+    if (c.lienInstagram) rx.push(`<a href="${c.lienInstagram}" target="_blank" class="reseau-btn">Instagram</a>`);
+    if (rx.length) { document.getElementById('reseaux').style.display = 'block'; document.getElementById('reseaux-links').innerHTML = rx.join(''); }
+  }
+
+  // Premium
+  if (f === 'premium') {
+    if (c.galerie?.length) {
+      document.getElementById('galerie').style.display = 'block';
+      document.getElementById('galerie-grid').innerHTML = c.galerie.map(img =>
+        `<div class="galerie-item"><img src="${img}" alt="" loading="lazy"/></div>`
+      ).join('');
+    }
+    if (c.documents?.length) {
+      document.getElementById('documents').style.display = 'block';
+      document.getElementById('docs-list').innerHTML = c.documents.map(d =>
+        `<div class="doc-item"><div class="doc-titre">${d.titre}</div><a href="${d.fichier}" download class="doc-btn">Télécharger</a></div>`
+      ).join('');
+    }
+  }
+})();
+</script>
+</body>
+</html>
