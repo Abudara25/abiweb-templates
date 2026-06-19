@@ -62,6 +62,21 @@ window.SITE_CONTENT_DEFAULTS = {
   galerie: [],
   documents: [],
   palmares: [],
+
+  seo: {
+    titre:       "[NOM CLIENT] — [SPORT] à [VILLE]",
+    description: "[Description 150 caractères max — Ex: Club de football à Saint-Gratien, ouvert à tous niveaux. Adhésion dès XX€/saison.]",
+    motsCles:    "[football, club sportif, association, ville, sport]",
+    googleAnalyticsId: "",   // Ex: "G-XXXXXXXXXX"
+    googleSearchConsole: "", // Ex: "xxxxxxxxxxxxxxxxxxxxx" (meta tag verification)
+  },
+
+  mentionsLegales: {
+    editeur:  "[NOM DU CLUB / ASSOCIATION]",
+    adresse:  "[ADRESSE DU SIÈGE]",
+    hebergeur: "[Ex: Vercel Inc. / Cloudflare, Inc.]",
+    siret:    "", // numéro RNA ou SIRET si applicable, sinon laisser vide
+  },
 };
 
 window.SITE_CONTENT_URL = "";

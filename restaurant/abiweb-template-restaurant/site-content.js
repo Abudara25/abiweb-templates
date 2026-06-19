@@ -72,6 +72,21 @@ window.SITE_CONTENT_DEFAULTS = {
   // Premium
   galerie:   [],
   documents: [],   // { titre: "Carte complète", fichier: "docs/carte.pdf" }
+
+  seo: {
+    titre:       "[NOM DU RESTAURANT] — [TYPE DE CUISINE] à [VILLE]",
+    description: "[Description 150 caractères max — Ex: Cuisine française faite maison à Saint-Gratien. Réservation en ligne, ouvert du mardi au samedi.]",
+    motsCles:    "[restaurant, type de cuisine, ville, réservation, restaurant local]",
+    googleAnalyticsId: "",   // Ex: "G-XXXXXXXXXX"
+    googleSearchConsole: "", // Ex: "xxxxxxxxxxxxxxxxxxxxx" (meta tag verification)
+  },
+
+  mentionsLegales: {
+    editeur:  "[NOM DU RESTAURANT]",
+    adresse:  "[ADRESSE COMPLÈTE]",
+    hebergeur: "[Ex: Vercel Inc. / Cloudflare, Inc.]",
+    siret:    "", // SIRET de l'établissement
+  },
 };
 
 window.SITE_CONTENT_URL = "";

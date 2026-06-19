@@ -5,9 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>[NOM DU RESTAURANT] — [VILLE]</title>
   <meta name="description" content="[NOM DU RESTAURANT] — [TYPE DE CUISINE] à [VILLE]. Réservez votre table."/>
+
+  <!-- SEO & Réseaux Sociaux -->
+  <meta name="keywords" content=""/>
+  <meta property="og:title" content=""/>
+  <meta property="og:description" content=""/>
+  <meta property="og:type" content="website"/>
+
+  <!-- Google Search Console -->
+  <meta name="google-site-verification" content=""/>
+
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="site-engine.css"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -275,17 +286,39 @@
       <div class="footer-logo" id="footer-logo">Le <span>Restaurant</span></div>
       <div class="footer-info">
         <span id="footer-type">[Type de cuisine]</span> · <span id="footer-ville">[VILLE]</span><br>
-        Site réalisé par <a href="https://abiweb.fr" target="_blank">AbiWeb</a>
+        Site réalisé par <a href="https://abiweb.fr" target="_blank">AbiWeb</a> ·
+        <a href="#" id="footer-mentions-link">Mentions légales</a>
       </div>
     </div>
   </div>
 </footer>
 
+<!-- MODAL MENTIONS LÉGALES -->
+<div class="modal-overlay" id="modal-mentions">
+  <div class="modal-box">
+    <button class="modal-close" id="modal-mentions-close" aria-label="Fermer">&times;</button>
+    <h3>Mentions légales</h3>
+    <div id="mentions-content"></div>
+  </div>
+</div>
+
+<!-- BANDEAU CONSENTEMENT COOKIES -->
+<div class="cookie-banner" id="cookie-banner">
+  <p>Ce site utilise Google Analytics pour mesurer son audience. Vous pouvez accepter ou refuser ce suivi.</p>
+  <div class="cookie-actions">
+    <button id="cookie-refuse">Refuser</button>
+    <button id="cookie-accept">Accepter</button>
+  </div>
+</div>
+
 <script src="site-content.js"></script>
+<script src="site-engine.js"></script>
 <script>
 (async () => {
   const c = await window.loadSiteContent();
   const f = window.FORMULE;
+
+  window.AbiWebEngine.init(c);
 
   document.documentElement.style.setProperty('--primary', c.restaurant.couleurPrimaire);
 
@@ -302,7 +335,7 @@
   document.getElementById('hero-slogan').textContent = c.restaurant.slogan;
   document.getElementById('footer-type').textContent = c.restaurant.type;
   document.getElementById('footer-ville').textContent = c.restaurant.ville;
-  document.title = c.restaurant.nom + ' — ' + c.restaurant.ville;
+  if (!c.seo || !c.seo.titre) document.title = c.restaurant.nom + ' — ' + c.restaurant.ville;
 
   // Stats
   document.getElementById('hero-stats').innerHTML = c.stats.map(s =>
