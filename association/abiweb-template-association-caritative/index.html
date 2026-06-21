@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>[NOM DE L'ASSOCIATION] — Site officiel</title>
+  <meta name="description" content="Site officiel de [NOM DE L'ASSOCIATION]. Présentation, équipe, actualités et don."/>
+
+  <!-- SEO & Réseaux Sociaux -->
+  <meta name="keywords" content=""/>
+  <meta property="og:title" content=""/>
+  <meta property="og:description" content=""/>
+  <meta property="og:type" content="website"/>
+
+  <!-- Google Search Console -->
+  <meta name="google-site-verification" content=""/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="site-engine.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary:      #b91c1c;
+      --primary-dk:   #991b1b;
+      --primary-lt:   #fef2f2;
+      --primary-md:   #fee2e2;
+      --accent-blue:  #2563eb;
+      --accent-green: #16a34a;
+      --text:         #111827;
+      --muted:        #6b7280;
+      --bg:           #ffffff;
+      --bg2:          #f9fafb;
+      --bg3:          #f3f4f6;
+      --border:       #e5e7eb;
+      --radius:       10px;
+      --max:          1100px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 99; background: #fff; border-bottom: 1px solid var(--border); height: 64px; display: flex; align-items: center; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--text); }
+    .nav-logo img { height: 36px; width: auto; }
+    .nav-logo span { color: var(--primary); }
+    .nav-links { display: flex; gap: 26px; list-style: none; align-items: center; }
+    .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--muted); transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-btn { background: var(--primary); color: #fff; padding: 9px 22px; border-radius: var(--radius); font-size: 0.875rem; font-weight: 600; transition: background 0.15s; display: inline-block; }
+    .nav-btn:hover { background: var(--primary-dk); }
+
+    /* HERO (Accueil) */
+    .hero { background: var(--primary-lt); border-bottom: 1px solid var(--primary-md); padding: 80px 0 56px; }
+    .hero-inner { max-width: 760px; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--primary-md); color: var(--primary); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
+    .hero h1 { font-family: 'Poppins', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .hero h1 em { font-style: normal; color: var(--primary); }
+    .hero-accroche { font-size: 1.05rem; color: var(--muted); margin-bottom: 32px; line-height: 1.65; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary { background: var(--primary); color: #fff; padding: 12px 28px; border-radius: var(--radius); font-weight: 600; font-size: 0.9rem; transition: background 0.15s; display: inline-block; }
+    .btn-primary:hover { background: var(--primary-dk); }
+    .btn-outline { background: #fff; color: var(--text); border: 1px solid var(--border); padding: 11px 27px; border-radius: var(--radius); font-weight: 500; font-size: 0.9rem; transition: border-color 0.15s; display: inline-block; }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* SECTIONS */
+    section { padding: 72px 0; }
+    .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+    .section-title { font-family: 'Poppins', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 24px; }
+    .section-title em { font-style: normal; color: var(--primary); }
+
+    /* APERÇU MISSIONS (Accueil) */
+    #missions-apercu { background: var(--primary-lt); padding: 0 0 72px; }
+    .missions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .mission-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: box-shadow 0.2s, border-color 0.2s; }
+    .mission-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); border-color: var(--primary-md); }
+    .mission-icone { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 14px; background: var(--primary-md); }
+    .mission-titre { font-family: 'Poppins', sans-serif; font-size: 1.02rem; font-weight: 700; margin-bottom: 8px; }
+    .mission-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+    /* QUI SOMMES-NOUS (bureau) */
+    #bureau { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .bureau-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .bureau-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; display: flex; gap: 18px; }
+    .bureau-photo { width: 72px; height: 72px; border-radius: 50%; background: var(--primary-md); color: var(--primary); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.3rem; overflow: hidden; }
+    .bureau-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .bureau-nom { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.02rem; margin-bottom: 2px; }
+    .bureau-role { font-size: 0.8rem; font-weight: 600; color: var(--primary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .bureau-bio { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+    /* NOS MISSIONS (détail) */
+    #missions { background: var(--bg); }
+    .missions-intro { font-size: 1rem; color: var(--text); max-width: 720px; margin-bottom: 40px; white-space: pre-line; }
+    .missions-detail-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .mission-detail-item { display: flex; gap: 20px; padding: 24px; background: #fff; border-bottom: 1px solid var(--border); }
+    .mission-detail-item:last-child { border: none; }
+    .mission-detail-icone { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; background: var(--primary-md); }
+    .mission-detail-titre { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+    .mission-detail-text { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+
+    /* ACTUALITÉS */
+    #actualites { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .actus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .actu-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .actu-media { width: 100%; aspect-ratio: 16/10; background: var(--bg3); }
+    .actu-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .actu-media iframe, .actu-media video { width: 100%; height: 100%; display: block; border: none; }
+    .actu-body { padding: 16px 18px; }
+    .actu-date { font-size: 0.72rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .actu-titre { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
+    .actu-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+    .actus-empty { color: var(--muted); font-size: 0.9rem; }
+
+    /* FAIRE UN DON */
+    #don { background: var(--bg); }
+    .don-intro { font-size: 1rem; color: var(--muted); max-width: 640px; margin-bottom: 28px; }
+    #don-widget iframe { width: 100%; height: 750px; border: none; border-radius: var(--radius); }
+    #don-widget p { color: var(--muted); font-size: 0.9rem; }
+
+    /* CONTACT */
+    #contact { background: var(--bg2); border-top: 1px solid var(--border); }
+    .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .ci { display: flex; align-items: flex-start; gap: 16px; background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; }
+    .ci-icon { width: 40px; height: 40px; background: var(--primary-lt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .ci-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 3px; }
+    .ci-val { font-size: 0.925rem; font-weight: 500; color: var(--text); }
+    .ci-val a { color: var(--primary); }
+
+    /* RÉSEAUX */
+    #reseaux { background: var(--bg); border-top: 1px solid var(--border); padding: 36px 0; display: none; }
+    .reseaux-inner { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .reseaux-label { font-size: 0.875rem; font-weight: 600; color: var(--muted); }
+    .reseaux-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .reseau-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.85rem; font-weight: 500; color: var(--text); transition: all 0.15s; }
+    .reseau-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* FOOTER */
+    footer { background: var(--text); padding: 32px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.05rem; color: #fff; }
+    .footer-logo img { height: 30px; width: auto; }
+    .footer-logo span { color: var(--primary); }
+    .footer-info { font-size: 0.8rem; color: rgba(255,255,255,0.45); line-height: 1.7; }
+    .footer-info a { color: rgba(255,255,255,0.6); }
+    .footer-info a:hover { color: #fff; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      section, #missions-apercu { padding: 48px 0; }
+      .missions-grid, .actus-grid { grid-template-columns: 1fr; }
+      .bureau-grid, .contact-grid { grid-template-columns: 1fr; }
+      .mission-detail-item { flex-direction: column; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container nav-inner">
+    <div class="nav-logo" id="nav-nom">[NOM]</div>
+    <ul class="nav-links">
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#bureau">Qui sommes-nous</a></li>
+      <li><a href="#missions">Nos missions</a></li>
+      <li><a href="#actualites">Actualités</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#don" class="nav-btn">Faire un don</a>
+  </div>
+</nav>
+
+<!-- ACCUEIL : hero + aperçu des missions -->
+<div class="hero" id="accueil">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">
+        <span id="hero-domaine">[DOMAINE D'ACTION]</span> · <span id="hero-ville">[VILLE]</span>
+      </div>
+      <h1 id="hero-title">[NOM DE L'<em>ASSOCIATION</em>]</h1>
+      <p class="hero-accroche" id="hero-accroche">[Accroche de l'association]</p>
+      <div class="hero-btns">
+        <a href="#don" class="btn-primary">Faire un don</a>
+        <a href="#missions" class="btn-outline">Nos missions</a>
+      </div>
+    </div>
+  </div>
+</div>
+<section id="missions-apercu">
+  <div class="container">
+    <div class="missions-grid" id="missions-grid"></div>
+  </div>
+</section>
+
+<!-- QUI SOMMES-NOUS : le bureau -->
+<section id="bureau">
+  <div class="container">
+    <div class="section-label">Qui sommes-nous</div>
+    <div class="section-title">Le <em>bureau</em></div>
+    <div class="bureau-grid" id="bureau-grid"></div>
+  </div>
+</section>
+
+<!-- NOS MISSIONS : détail des actions -->
+<section id="missions">
+  <div class="container">
+    <div class="section-label">Nos missions</div>
+    <div class="section-title">Détail de nos <em>actions</em></div>
+    <p class="missions-intro" id="missions-intro">[Texte de présentation]</p>
+    <div class="missions-detail-list" id="missions-detail-list"></div>
+  </div>
+</section>
+
+<!-- ACTUALITÉS (alimentées par un Google Sheet, lecture seule, sans commentaires) -->
+<section id="actualites">
+  <div class="container">
+    <div class="section-label">Vie de l'association</div>
+    <div class="section-title">Nos <em>actualités</em></div>
+    <div class="actus-grid" id="actus-grid"><p class="actus-empty">Actualités à venir.</p></div>
+  </div>
+</section>
+
+<!-- FAIRE UN DON : widget HelloAsso -->
+<section id="don">
+  <div class="container">
+    <div class="section-label">Soutenir l'association</div>
+    <div class="section-title">Faire un <em>don</em></div>
+    <p class="don-intro">Vos dons et adhésions sont collectés en toute sécurité via HelloAsso.</p>
+    <div id="don-widget"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Contact</div>
+    <div class="section-title">Nous <em>contacter</em></div>
+    <div class="contact-grid">
+      <div class="ci"><div class="ci-icon">📍</div><div><div class="ci-label">Adresse</div><div class="ci-val" id="c-adresse">[ADRESSE]</div></div></div>
+      <div class="ci"><div class="ci-icon">📞</div><div><div class="ci-label">Téléphone</div><div class="ci-val"><a id="c-tel" href="#">[TEL]</a></div></div></div>
+      <div class="ci"><div class="ci-icon">✉️</div><div><div class="ci-label">Email</div><div class="ci-val"><a id="c-email" href="#">[EMAIL]</a></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉSEAUX -->
+<div id="reseaux">
+  <div class="container">
+    <div class="reseaux-inner">
+      <div class="reseaux-label">Suivez-nous</div>
+      <div class="reseaux-links" id="reseaux-links"></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo" id="footer-logo">[NOM]</div>
+      <div class="footer-info">
+        Association loi 1901 · <span id="footer-ville"></span><br>
+        Site réalisé par <a href="https://abiweb.fr" target="_blank">AbiWeb</a> ·
+        <a href="#" id="footer-mentions-link">Mentions légales</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL MENTIONS LÉGALES -->
+<div class="modal-overlay" id="modal-mentions">
+  <div class="modal-box">
+    <button class="modal-close" id="modal-mentions-close" aria-label="Fermer">&times;</button>
+    <h3>Mentions légales</h3>
+    <div id="mentions-content"></div>
+  </div>
+</div>
+
+<!-- BANDEAU CONSENTEMENT COOKIES -->
+<div class="cookie-banner" id="cookie-banner">
+  <p>Ce site utilise Google Analytics pour mesurer son audience. Vous pouvez accepter ou refuser ce suivi.</p>
+  <div class="cookie-actions">
+    <button id="cookie-refuse">Refuser</button>
+    <button id="cookie-accept">Accepter</button>
+  </div>
+</div>
+
+<script src="site-content.js"></script>
+<script src="site-engine.js"></script>
+<script>
+(async () => {
+  const c = await window.loadSiteContent();
+
+  window.AbiWebEngine.init(c);
+
+  document.documentElement.style.setProperty('--primary', c.association.couleurPrimaire);
+
+  // Logo (image si fournie, sinon nom stylisé)
+  const nom = c.association.nom;
+  const mid = Math.ceil(nom.length / 2);
+  const p1 = nom.slice(0, mid), p2 = nom.slice(mid);
+  const logoHtml = c.association.logo
+    ? `<img src="${c.association.logo}" alt="${nom}"/>`
+    : `${p1} <span>${p2}</span>`;
+  document.getElementById('nav-nom').innerHTML = logoHtml;
+  document.getElementById('footer-logo').innerHTML = logoHtml;
+
+  document.getElementById('hero-title').innerHTML = nom.split(' ').slice(0,-1).join(' ') + ' <em>' + nom.split(' ').slice(-1)[0] + '</em>';
+  document.getElementById('hero-domaine').textContent = c.association.domaine;
+  document.getElementById('hero-ville').textContent = c.association.ville;
+  document.getElementById('hero-accroche').textContent = c.association.accroche;
+  document.getElementById('footer-ville').textContent = c.association.ville;
+  if (!c.seo || !c.seo.titre) document.title = c.association.nom + ' — Site officiel';
+
+  // Accueil — aperçu des 6 missions
+  document.getElementById('missions-grid').innerHTML = c.missions.map(m => `
+    <div class="mission-card">
+      ${m.icone ? `<div class="mission-icone" style="background:${m.couleur || 'var(--primary-md)'}">${m.icone}</div>` : ''}
+      <div class="mission-titre">${m.titre}</div>
+      <div class="mission-desc">${m.description}</div>
+    </div>
+  `).join('');
+
+  // Qui sommes-nous — le bureau
+  document.getElementById('bureau-grid').innerHTML = c.bureau.map(p => {
+    const initiales = p.nom.split(' ').map(w => w[0]).slice(0,2).join('');
+    const photoHtml = p.photo ? `<img src="${p.photo}" alt="${p.nom}"/>` : initiales;
+    return `
+      <div class="bureau-card">
+        <div class="bureau-photo">${photoHtml}</div>
+        <div>
+          <div class="bureau-nom">${p.nom}</div>
+          <div class="bureau-role">${p.role}</div>
+          <div class="bureau-bio">${p.bio}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Nos missions — détail
+  document.getElementById('missions-intro').textContent = c.presentation.texte;
+  document.getElementById('missions-detail-list').innerHTML = c.missions.map(m => `
+    <div class="mission-detail-item">
+      ${m.icone ? `<div class="mission-detail-icone" style="background:${m.couleur || 'var(--primary-md)'}">${m.icone}</div>` : ''}
+      <div>
+        <div class="mission-detail-titre">${m.titre}</div>
+        <div class="mission-detail-text">${m.detail || m.description}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Contact
+  document.getElementById('c-adresse').textContent = c.contact.adresse;
+  document.getElementById('c-tel').textContent = c.contact.telephone;
+  document.getElementById('c-tel').href = 'tel:' + c.contact.telephone.replace(/\s/g,'');
+  document.getElementById('c-email').textContent = c.contact.email;
+  document.getElementById('c-email').href = 'mailto:' + c.contact.email;
+
+  // Faire un don — widget HelloAsso (ou lien simple, ou message d'attente)
+  const ha = c.helloAsso || {};
+  const donEl = document.getElementById('don-widget');
+  if (ha.widgetUrl) {
+    donEl.innerHTML = `<iframe src="${ha.widgetUrl}" loading="lazy"></iframe>`;
+  } else if (ha.lien) {
+    donEl.innerHTML = `<a href="${ha.lien}" target="_blank" class="btn-primary">Faire un don sur HelloAsso</a>`;
+  } else {
+    donEl.innerHTML = `<p>Le lien de don HelloAsso sera ajouté ici dès qu'il sera créé par l'association.</p>`;
+  }
+
+  // Réseaux
+  const rx = [];
+  if (c.lienFacebook)  rx.push(`<a href="${c.lienFacebook}"  target="_blank" class="reseau-btn">Facebook</a>`);
+  if (c.lienInstagram) rx.push(`<a href="${c.lienInstagram}" target="_blank" class="reseau-btn">Instagram</a>`);
+  if (rx.length) { document.getElementById('reseaux').style.display = 'block'; document.getElementById('reseaux-links').innerHTML = rx.join(''); }
+
+  // Actualités — lues depuis un Google Sheet publié en CSV (voir ACTUALITES-SETUP.md).
+  // Lecture seule : aucun champ de commentaire n'existe côté site.
+  const actus = await loadActualites(c.actualites && c.actualites.sheetUrl);
+  if (actus.length) {
+    document.getElementById('actus-grid').innerHTML = actus.map(a => `
+      <div class="actu-card">
+        <div class="actu-media">${renderActuMedia(a)}</div>
+        <div class="actu-body">
+          ${a.date ? `<div class="actu-date">${a.date}</div>` : ''}
+          <div class="actu-titre">${a.titre}</div>
+          ${a.description ? `<div class="actu-desc">${a.description}</div>` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderActuMedia(a) {
+    if (a.type === 'video') {
+      const embed = youtubeEmbedUrl(a.lien);
+      if (embed) return `<iframe src="${embed}" allowfullscreen loading="lazy"></iframe>`;
+      return `<video src="${a.lien}" controls></video>`;
+    }
+    return a.lien ? `<img src="${a.lien}" alt="${a.titre}" loading="lazy"/>` : '';
+  }
+
+  function youtubeEmbedUrl(url) {
+    if (!url) return null;
+    const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/);
+    return m ? `https://www.youtube.com/embed/${m[1]}` : null;
+  }
+
+  function parseCSV(text) {
+    const rows = [];
+    let row = [], field = '', inQuotes = false;
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i], next = text[i + 1];
+      if (inQuotes) {
+        if (ch === '"' && next === '"') { field += '"'; i++; }
+        else if (ch === '"') { inQuotes = false; }
+        else { field += ch; }
+      } else {
+        if (ch === '"') inQuotes = true;
+        else if (ch === ',') { row.push(field); field = ''; }
+        else if (ch === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+        else if (ch === '\r') { /* ignoré */ }
+        else { field += ch; }
+      }
+    }
+    if (field || row.length) { row.push(field); rows.push(row); }
+    return rows;
+  }
+
+  async function loadActualites(sheetUrl) {
+    if (!sheetUrl) return [];
+    try {
+      const res = await fetch(sheetUrl, { cache: 'no-store' });
+      if (!res.ok) throw new Error('feuille indisponible');
+      const text = await res.text();
+      const rows = parseCSV(text).filter(r => r.some(cell => cell.trim()));
+      const [header, ...body] = rows;
+      const idx = (name) => header.findIndex(h => h.trim().toLowerCase() === name);
+      const iDate = idx('date'), iTitre = idx('titre'), iDesc = idx('description'), iType = idx('type'), iLien = idx('lien');
+      return body
+        .map(r => ({
+          date: (r[iDate] || '').trim(),
+          titre: (r[iTitre] || '').trim(),
+          description: (r[iDesc] || '').trim(),
+          type: (r[iType] || 'photo').trim().toLowerCase(),
+          lien: (r[iLien] || '').trim(),
+        }))
+        .filter(a => a.titre || a.lien)
+        .reverse();
+    } catch (e) {
+      console.warn('Actualités indisponibles.', e);
+      return [];
+    }
+  }
+})();
+</script>
+</body>
+</html>

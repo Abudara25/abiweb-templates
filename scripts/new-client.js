@@ -2,7 +2,7 @@
 // new-client.js — Scaffold un nouveau projet client à partir d'un template
 //
 // Usage interactive : node scripts/new-client.js
-// Usage directe      : node scripts/new-client.js <association|restaurant> "<nom>" "<ville>" "<sport|cuisine>"
+// Usage directe      : node scripts/new-client.js <association|restaurant|association-caritative> "<nom>" "<ville>" "<sport|cuisine|domaine d'action>"
 // ============================================================
 
 const fs = require("fs");
@@ -12,10 +12,17 @@ const readline = require("readline");
 const ROOT = path.join(__dirname, "..");
 
 const TEMPLATES = {
-  "1": { label: "Association", dir: path.join(ROOT, "association", "abiweb-template-association") },
-  "2": { label: "Restaurant", dir: path.join(ROOT, "restaurant", "abiweb-template-restaurant") },
+  "1": { label: "Association sportive", secteurLabel: "Sport / discipline", dir: path.join(ROOT, "association", "abiweb-template-association") },
+  "2": { label: "Restaurant", secteurLabel: "Type de cuisine", dir: path.join(ROOT, "restaurant", "abiweb-template-restaurant") },
+  "3": { label: "Association caritative", secteurLabel: "Domaine d'action", dir: path.join(ROOT, "association", "abiweb-template-association-caritative") },
 };
-const TEMPLATE_ALIASES = { association: "1", restaurant: "2" };
+const TEMPLATE_ALIASES = {
+  association: "1",
+  "association-sportive": "1",
+  restaurant: "2",
+  "association-caritative": "3",
+  caritative: "3",
+};
 
 let rl;
 function ask(q) {
@@ -56,7 +63,7 @@ async function main() {
   if (argTemplate) {
     // Mode direct : node scripts/new-client.js association "ASC Test" "Saint-Gratien" "Football"
     template = TEMPLATES[TEMPLATE_ALIASES[argTemplate.toLowerCase()] || argTemplate];
-    if (!template) { console.log(`Template inconnu : ${argTemplate} (attendu : association | restaurant)`); return; }
+    if (!template) { console.log(`Template inconnu : ${argTemplate} (attendu : association | restaurant | association-caritative)`); return; }
     nom = (argNom || "").trim();
     ville = (argVille || "").trim();
     secteurOuCuisine = (argSecteur || "").trim();
@@ -69,11 +76,9 @@ async function main() {
     template = TEMPLATES[choice];
     if (!template) { console.log("Choix invalide."); rl.close(); return; }
 
-    nom = (await ask("Nom du client (club / restaurant) : ")).trim();
+    nom = (await ask("Nom du client (club / restaurant / association) : ")).trim();
     ville = (await ask("Ville : ")).trim();
-    secteurOuCuisine = (await ask(
-      template.label === "Association" ? "Sport / discipline : " : "Type de cuisine : "
-    )).trim();
+    secteurOuCuisine = (await ask(`${template.secteurLabel} : `)).trim();
   }
 
   const slug = slugify(nom) || "nouveau-client";
@@ -88,12 +93,19 @@ async function main() {
   copyDir(template.dir, destDir);
 
   const contentFile = path.join(destDir, "site-content.js");
-  if (template.label === "Association") {
+  if (template.label === "Association sportive") {
     replaceInFile(contentFile, [
       ["[NOM CLIENT] — [SPORT] à [VILLE]", `${nom} — ${secteurOuCuisine} à ${ville}`],
       ["[NOM DU CLUB]", nom],
       ["[VILLE]", ville],
       ["[SPORT / DISCIPLINE]", secteurOuCuisine],
+    ]);
+  } else if (template.label === "Association caritative") {
+    replaceInFile(contentFile, [
+      ["[NOM DE L'ASSOCIATION] — [DOMAINE D'ACTION] à [VILLE]", `${nom} — ${secteurOuCuisine} à ${ville}`],
+      ["[NOM DE L'ASSOCIATION]", nom],
+      ["[VILLE]", ville],
+      ["[DOMAINE D'ACTION]", secteurOuCuisine],
     ]);
   } else {
     replaceInFile(contentFile, [
@@ -108,8 +120,10 @@ async function main() {
   replaceInFile(indexFile, [
     ["[NOM DU CLUB]", nom],
     ["[NOM DU RESTAURANT]", nom],
+    ["[NOM DE L'ASSOCIATION]", nom],
     ["[VILLE]", ville],
     ["[TYPE DE CUISINE]", secteurOuCuisine],
+    ["[DOMAINE D'ACTION]", secteurOuCuisine],
   ]);
 
   console.log(`\n✓ Projet créé dans clients/${slug}/`);
