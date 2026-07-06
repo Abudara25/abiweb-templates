@@ -19,6 +19,7 @@ shared/                                  ← fichiers communs à TOUS les templa
 scripts/
   new-client.js                          ← scaffold un nouveau client depuis un template
   sync-shared.js                         ← propage shared/ vers tous les templates
+  generateur-prompt/                     ← génère un prompt Claude Code depuis un brief client JSON (voir son README.md)
 
 clients/<slug>/                          ← générés par new-client.js (un dossier par client livré)
 ```
