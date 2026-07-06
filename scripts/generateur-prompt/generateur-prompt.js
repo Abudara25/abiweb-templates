@@ -19,7 +19,8 @@ const path = require('path');
 
 // ---- 1. Templates par secteur ------------------------------------------
 // Sections vérifiées le 2026-07-06 contre le repo Abudara25/abiweb-templates
-// (ancres <section id="..."> et navigation des index.html).
+// (ancres <section id="..."> et navigation des index.html), y compris le
+// template artisan créé ce jour-là.
 // Rappel : les formules valides sont "essentiel" | "standard" | "premium"
 // (minuscules, cf. window.FORMULE dans site-content.js).
 
@@ -54,13 +55,19 @@ const TEMPLATES = {
     ton: "appétissant, convivial, mise en avant visuelle des plats",
     specifique: "Tout le contenu vit dans site-content.js (clés : restaurant, contact, stats, categories, menus, lienReservation, galerie, documents, seo, mentionsLegales), jamais en dur dans index.html. La carte est modifiable via categories/menus et la réservation passe par lienReservation (téléphone, LaFourchette, Calendly...)."
   },
-  // NOTE (2026-07-06) : aucun template "artisan" n'existe encore dans
-  // abiweb-templates. Sections indicatives, à aligner sur le vrai template
-  // le jour où il sera créé.
   artisan: {
-    sections: ['Accueil', 'Services', 'Réalisations', 'Devis', 'Contact'],
+    // Template : artisan/abiweb-template-artisan
+    sections: [
+      'Accueil (hero + bandeau garanties)',
+      'Prestations (#prestations)',
+      'Tarifs (#tarifs)',
+      'Devis en ligne (#devis-cta, Standard et Premium)',
+      'Contact (#contact, avec zone d\'intervention)',
+      'Galerie réalisations (#galerie, Premium uniquement)',
+      'Documents (#documents, Premium uniquement — assurance décennale, certifications)'
+    ],
     ton: "professionnel, rassurant, orienté confiance et savoir-faire",
-    specifique: "Prévoir une galerie de réalisations et un formulaire de demande de devis connecté à Brevo."
+    specifique: "Tout le contenu vit dans site-content.js (clés : artisan, contact, stats, garanties, prestations, tarifs, tarifNote, lienDevis, galerie, documents, seo, mentionsLegales), jamais en dur dans index.html. `garanties` (devis gratuit, assurance décennale, délai d'intervention...) est un bandeau de réassurance toujours affiché, même en formule Essentiel. La prise de devis en ligne passe par lienDevis (formulaire, Calendly, Doctolib...)."
   }
 };
 

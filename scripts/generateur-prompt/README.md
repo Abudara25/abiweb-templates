@@ -25,6 +25,5 @@ Le prompt est écrit dans `prompt_final.md`, dans le même dossier que le brief.
 
 ## Notes
 
-- Les sections `association` et `restaurant` ont été vérifiées le 2026-07-06 contre les templates réels de ce repo (ancres et navigation des index.html).
-- Le secteur `artisan` est indicatif : aucun template artisan n'existe encore.
+- Les sections `association`, `restaurant` et `artisan` ont été vérifiées le 2026-07-06 contre les templates réels de ce repo (ancres et navigation des index.html).
 - `prompt_final.md` est un fichier généré, ignoré par git : il est réécrit à chaque exécution.

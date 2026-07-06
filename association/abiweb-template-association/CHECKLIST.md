@@ -33,3 +33,11 @@
 - [ ] Site mis en ligne
 - [ ] Guide de mise à jour (modifier textes/photos) remis au client
 - [ ] Rappel J+7 programmé (garantie retouches)
+
+## Modules optionnels (à activer selon le client)
+- [ ] Actualités en self-service → voir `shared/decap-cms-kit/README.md` (Decap CMS + OAuth
+      vérifié sans vulnérabilité connue)
+- [ ] Contenu fourni par le client/un outil IA relu et vétoté avant intégration (numéros,
+      chiffres, claims non vérifiables) → voir `shared/SNIPPETS.md`, dernière section
+- [ ] Responsive testé sur un vrai appareil (pas seulement l'inspecteur navigateur) ; en cas de
+      bug résistant aux breakpoints `@media`, voir `shared/RESPONSIVE-PATTERNS.md`
