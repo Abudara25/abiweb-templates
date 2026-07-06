@@ -2,7 +2,7 @@
 // new-client.js — Scaffold un nouveau projet client à partir d'un template
 //
 // Usage interactive : node scripts/new-client.js
-// Usage directe      : node scripts/new-client.js <association|restaurant|association-caritative|artisan|commerce> "<nom>" "<ville>" "<sport|cuisine|domaine d'action|métier|type de commerce>"
+// Usage directe      : node scripts/new-client.js <association|restaurant|association-caritative|artisan|commerce|entreprise> "<nom>" "<ville>" "<sport|cuisine|domaine d'action|métier|type de commerce|activité>"
 // ============================================================
 
 const fs = require("fs");
@@ -17,6 +17,7 @@ const TEMPLATES = {
   "3": { label: "Association caritative", secteurLabel: "Domaine d'action", dir: path.join(ROOT, "association", "abiweb-template-association-caritative") },
   "4": { label: "Artisan", secteurLabel: "Métier", dir: path.join(ROOT, "artisan", "abiweb-template-artisan") },
   "5": { label: "Commerce", secteurLabel: "Type de commerce", dir: path.join(ROOT, "commerce", "abiweb-template-commerce") },
+  "6": { label: "Entreprise", secteurLabel: "Activité", dir: path.join(ROOT, "entreprise", "abiweb-template-entreprise") },
 };
 const TEMPLATE_ALIASES = {
   association: "1",
@@ -27,6 +28,11 @@ const TEMPLATE_ALIASES = {
   artisan: "4",
   commerce: "5",
   boutique: "5",
+  entreprise: "6",
+  freelance: "6",
+  "auto-entrepreneur": "6",
+  tpe: "6",
+  pme: "6",
 };
 
 let rl;
@@ -126,6 +132,13 @@ async function main() {
       ["[VILLE]", ville],
       ["[Type de commerce · Ex: Épicerie fine]", secteurOuCuisine],
     ]);
+  } else if (template.label === "Entreprise") {
+    replaceInFile(contentFile, [
+      ["[NOM CLIENT] — [ACTIVITÉ] à [VILLE]", `${nom} — ${secteurOuCuisine} à ${ville}`],
+      ["[NOM DE L'ENTREPRISE / DU FREELANCE]", nom],
+      ["[VILLE]", ville],
+      ["[ACTIVITÉ · Ex: Développeur web freelance]", secteurOuCuisine],
+    ]);
   } else {
     replaceInFile(contentFile, [
       ["[NOM DU RESTAURANT] — [TYPE DE CUISINE] à [VILLE]", `${nom} — ${secteurOuCuisine} à ${ville}`],
@@ -142,11 +155,13 @@ async function main() {
     ["[NOM DE L'ASSOCIATION]", nom],
     ["[NOM DE L'ARTISAN / ENTREPRISE]", nom],
     ["[NOM DE LA BOUTIQUE]", nom],
+    ["[NOM DE L'ENTREPRISE / DU FREELANCE]", nom],
     ["[VILLE]", ville],
     ["[TYPE DE CUISINE]", secteurOuCuisine],
     ["[DOMAINE D'ACTION]", secteurOuCuisine],
     ["[MÉTIER]", secteurOuCuisine],
     ["[TYPE DE COMMERCE]", secteurOuCuisine],
+    ["[ACTIVITÉ]", secteurOuCuisine],
   ]);
 
   console.log(`\n✓ Projet créé dans clients/${slug}/`);

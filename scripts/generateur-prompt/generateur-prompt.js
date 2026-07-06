@@ -82,6 +82,25 @@ const TEMPLATES = {
     ],
     ton: "chaleureux et engageant, met en avant la sélection et la proximité plutôt qu'un catalogue exhaustif",
     specifique: "Tout le contenu vit dans site-content.js (clés : commerce, contact, stats, moyensPaiement, rayons, coupsDeCoeur, coupsDeCoeurNote, lienCommande, galerie, documents, seo, mentionsLegales), jamais en dur dans index.html. `moyensPaiement` est un bandeau toujours affiché, même en formule Essentiel. `coupsDeCoeur` est une sélection illustrative (pas un catalogue exhaustif et daté) — le préciser via coupsDeCoeurNote. La commande en ligne / click & collect passe par lienCommande."
+  },
+  // Couvre à la fois "Auto-entrepreneur / Freelance" et "TPE / PME" du formulaire /devis :
+  // ces deux options se recouvrent trop (présentation pro, services, contact) pour justifier
+  // deux templates distincts — voir shared/CHECKLIST.md et la logique déjà appliquée à
+  // "Club sportif", qui réutilise tel quel le template association.
+  entreprise: {
+    // Template : entreprise/abiweb-template-entreprise
+    sections: [
+      'Accueil (hero + bandeau garanties)',
+      'Services (#services)',
+      'Témoignages (#temoignages)',
+      'Tarifs (#tarifs)',
+      'Prise de rendez-vous (#rdv-cta, Standard et Premium)',
+      'Contact (#contact, avec zone d\'intervention)',
+      'Galerie réalisations (#galerie, Premium uniquement)',
+      'Documents (#documents, Premium uniquement)'
+    ],
+    ton: "professionnel, direct, orienté résultats et crédibilité (SIRET, avis clients, réalisations concrètes)",
+    specifique: "Tout le contenu vit dans site-content.js (clés : entreprise, contact, stats, garanties, services, temoignages, tarifs, tarifNote, lienRdv, lienLinkedin, galerie, documents, seo, mentionsLegales), jamais en dur dans index.html. `garanties` est un bandeau de réassurance toujours affiché, même en formule Essentiel. La prise de rendez-vous passe par lienRdv (Calendly, Doctolib, formulaire...)."
   }
 };
 
