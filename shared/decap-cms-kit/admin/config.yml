@@ -1,0 +1,37 @@
+backend:
+  name: github
+  repo: "[REPO_GITHUB]" # ex. Abudara25/nom-du-client
+  branch: main
+  # Projet OAuth déployé séparément sur Vercel (voir README.md de ce kit,
+  # section "Mise en place de l'authentification OAuth"). auth_endpoint n'a pas
+  # besoin d'être précisé : "auth" est la valeur par défaut de Decap CMS et
+  # correspond à la route /auth de ce projet OAuth.
+  base_url: "[URL_PROJET_OAUTH]" # ex. https://nom-du-client-cms-oauth.vercel.app
+
+publish_mode: simple
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "actualites"
+    label: "Actualités"
+    label_singular: "Actualité"
+    folder: "data/actualites"
+    create: true
+    format: "json"
+    extension: "json"
+    identifier_field: "titre"
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Image d'illustration", name: "image", widget: "image", required: false }
+      - {
+          label: "Lien YouTube",
+          name: "youtube",
+          widget: "string",
+          required: false,
+          hint: "Collez l'adresse de la vidéo (ex. https://www.youtube.com/watch?v=XXXXXXXXXXX ou https://youtu.be/XXXXXXXXXXX). Laissez vide si pas de vidéo.",
+        }
+      - { label: "Contenu", name: "body", widget: "markdown" }
