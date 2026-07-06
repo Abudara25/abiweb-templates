@@ -68,6 +68,20 @@ const TEMPLATES = {
     ],
     ton: "professionnel, rassurant, orienté confiance et savoir-faire",
     specifique: "Tout le contenu vit dans site-content.js (clés : artisan, contact, stats, garanties, prestations, tarifs, tarifNote, lienDevis, galerie, documents, seo, mentionsLegales), jamais en dur dans index.html. `garanties` (devis gratuit, assurance décennale, délai d'intervention...) est un bandeau de réassurance toujours affiché, même en formule Essentiel. La prise de devis en ligne passe par lienDevis (formulaire, Calendly, Doctolib...)."
+  },
+  commerce: {
+    // Template : commerce/abiweb-template-commerce
+    sections: [
+      'Accueil (hero + bandeau moyens de paiement)',
+      'Rayons (#rayons)',
+      'Coups de cœur / sélection produits (#coups-de-coeur)',
+      'Commande en ligne / click & collect (#commande-cta, Standard et Premium)',
+      'Infos pratiques / Contact (#contact, avec horaires et jour de fermeture)',
+      'Galerie (#galerie, Premium uniquement)',
+      'Documents (#documents, Premium uniquement — catalogue, carte de fidélité)'
+    ],
+    ton: "chaleureux et engageant, met en avant la sélection et la proximité plutôt qu'un catalogue exhaustif",
+    specifique: "Tout le contenu vit dans site-content.js (clés : commerce, contact, stats, moyensPaiement, rayons, coupsDeCoeur, coupsDeCoeurNote, lienCommande, galerie, documents, seo, mentionsLegales), jamais en dur dans index.html. `moyensPaiement` est un bandeau toujours affiché, même en formule Essentiel. `coupsDeCoeur` est une sélection illustrative (pas un catalogue exhaustif et daté) — le préciser via coupsDeCoeurNote. La commande en ligne / click & collect passe par lienCommande."
   }
 };
 

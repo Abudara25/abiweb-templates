@@ -2,7 +2,7 @@
 // new-client.js — Scaffold un nouveau projet client à partir d'un template
 //
 // Usage interactive : node scripts/new-client.js
-// Usage directe      : node scripts/new-client.js <association|restaurant|association-caritative|artisan> "<nom>" "<ville>" "<sport|cuisine|domaine d'action|métier>"
+// Usage directe      : node scripts/new-client.js <association|restaurant|association-caritative|artisan|commerce> "<nom>" "<ville>" "<sport|cuisine|domaine d'action|métier|type de commerce>"
 // ============================================================
 
 const fs = require("fs");
@@ -16,6 +16,7 @@ const TEMPLATES = {
   "2": { label: "Restaurant", secteurLabel: "Type de cuisine", dir: path.join(ROOT, "restaurant", "abiweb-template-restaurant") },
   "3": { label: "Association caritative", secteurLabel: "Domaine d'action", dir: path.join(ROOT, "association", "abiweb-template-association-caritative") },
   "4": { label: "Artisan", secteurLabel: "Métier", dir: path.join(ROOT, "artisan", "abiweb-template-artisan") },
+  "5": { label: "Commerce", secteurLabel: "Type de commerce", dir: path.join(ROOT, "commerce", "abiweb-template-commerce") },
 };
 const TEMPLATE_ALIASES = {
   association: "1",
@@ -24,6 +25,8 @@ const TEMPLATE_ALIASES = {
   "association-caritative": "3",
   caritative: "3",
   artisan: "4",
+  commerce: "5",
+  boutique: "5",
 };
 
 let rl;
@@ -116,6 +119,13 @@ async function main() {
       ["[VILLE]", ville],
       ["[MÉTIER · Ex: Plombier-chauffagiste]", secteurOuCuisine],
     ]);
+  } else if (template.label === "Commerce") {
+    replaceInFile(contentFile, [
+      ["[NOM CLIENT] — [TYPE DE COMMERCE] à [VILLE]", `${nom} — ${secteurOuCuisine} à ${ville}`],
+      ["[NOM DE LA BOUTIQUE]", nom],
+      ["[VILLE]", ville],
+      ["[Type de commerce · Ex: Épicerie fine]", secteurOuCuisine],
+    ]);
   } else {
     replaceInFile(contentFile, [
       ["[NOM DU RESTAURANT] — [TYPE DE CUISINE] à [VILLE]", `${nom} — ${secteurOuCuisine} à ${ville}`],
@@ -131,10 +141,12 @@ async function main() {
     ["[NOM DU RESTAURANT]", nom],
     ["[NOM DE L'ASSOCIATION]", nom],
     ["[NOM DE L'ARTISAN / ENTREPRISE]", nom],
+    ["[NOM DE LA BOUTIQUE]", nom],
     ["[VILLE]", ville],
     ["[TYPE DE CUISINE]", secteurOuCuisine],
     ["[DOMAINE D'ACTION]", secteurOuCuisine],
     ["[MÉTIER]", secteurOuCuisine],
+    ["[TYPE DE COMMERCE]", secteurOuCuisine],
   ]);
 
   console.log(`\n✓ Projet créé dans clients/${slug}/`);
