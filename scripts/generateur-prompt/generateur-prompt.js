@@ -4,11 +4,13 @@
  *
  * Usage : node generateur-prompt.js brief_client.json
  *
- * Lit un brief client (JSON) et génère automatiquement un prompt
- * complet pour Claude Code, en combinant :
+ * Lit le JSON brut soumis via le formulaire /devis d'abiweb.fr (même forme
+ * que l'objet `data` construit par abiweb/api/send-brief.js — voir
+ * scripts/generateur-prompt/exemple-brief-client.json pour un exemple) et
+ * génère automatiquement un prompt complet pour Claude Code, en combinant :
  *  - les règles générales AbiWeb
- *  - un template spécifique au secteur du client
- *  - les infos propres au client (nom, couleurs, formule, sections)
+ *  - le template du secteur détecté à partir de "type"
+ *  - toutes les réponses du client (contact, tarification, contenu, design)
  *
  * Le résultat est écrit dans prompt_final.md, prêt à être collé
  * ou lu directement par Claude Code.
@@ -19,16 +21,14 @@ const path = require('path');
 
 // ---- 1. Templates par secteur ------------------------------------------
 // Sections vérifiées le 2026-07-06 contre le repo Abudara25/abiweb-templates
-// (ancres <section id="..."> et navigation des index.html), y compris le
-// template artisan créé ce jour-là.
+// (ancres <section id="..."> et navigation des index.html).
 // Rappel : les formules valides sont "essentiel" | "standard" | "premium"
 // (minuscules, cf. window.FORMULE dans site-content.js).
 
 const TEMPLATES = {
   association: {
-    // Template : association/abiweb-template-association
-    // Variante disponible : abiweb-template-association-caritative
-    // (missions, bureau, actualités, don, contact)
+    // Template : association/abiweb-template-association (variante sportive,
+    // réutilisée telle quelle pour "Club sportif")
     sections: [
       'Accueil (hero)',
       'Activités (#activites)',
@@ -40,6 +40,19 @@ const TEMPLATES = {
     ],
     ton: "chaleureux, orienté communauté et engagement",
     specifique: "Tout le contenu vit dans site-content.js (clés : club, contact, stats, sections, agenda, tarifs, lienAdhesion, galerie, documents, palmares, seo, mentionsLegales), jamais en dur dans index.html. Prévoir le lien d'adhésion (lienAdhesion) et un agenda facile à mettre à jour."
+  },
+  "association-caritative": {
+    // Template : association/abiweb-template-association-caritative
+    sections: [
+      'Accueil (hero)',
+      'Nos missions (#missions)',
+      'Le bureau (#bureau)',
+      'Actualités (#actualites)',
+      'Faire un don (#don)',
+      'Contact (#contact)'
+    ],
+    ton: "engagé, humain, orienté cause et transparence",
+    specifique: "Tout le contenu vit dans site-content.js (clés : association, contact, presentation, missions, bureau, helloAsso, actualites, seo, mentionsLegales), jamais en dur dans index.html. Le don passe par helloAsso (widget ou lien simple) et les actualités par un Google Sheet publié en CSV (voir ACTUALITES-SETUP.md)."
   },
   restaurant: {
     // Template : restaurant/abiweb-template-restaurant
@@ -85,8 +98,8 @@ const TEMPLATES = {
   },
   // Couvre à la fois "Auto-entrepreneur / Freelance" et "TPE / PME" du formulaire /devis :
   // ces deux options se recouvrent trop (présentation pro, services, contact) pour justifier
-  // deux templates distincts — voir shared/CHECKLIST.md et la logique déjà appliquée à
-  // "Club sportif", qui réutilise tel quel le template association.
+  // deux templates distincts — voir la logique déjà appliquée à "Club sportif", qui réutilise
+  // tel quel le template association.
   entreprise: {
     // Template : entreprise/abiweb-template-entreprise
     sections: [
@@ -104,7 +117,24 @@ const TEMPLATES = {
   }
 };
 
-// ---- 2. Règles générales AbiWeb ----
+// ---- 2. Détection du secteur à partir du champ "type" (#type-structure) --
+// Valeurs possibles du formulaire /devis, dans l'ordre de son <select> :
+// "Association", "Auto-entrepreneur / Freelance", "Commerce / Boutique",
+// "Artisan / Prestataire de services", "TPE / PME", "Club sportif", "Autre".
+
+const SECTEUR_PAR_TYPE = {
+  "Association":                          "association-caritative",
+  "Club sportif":                         "association",
+  "Commerce / Boutique":                  "commerce",
+  "Artisan / Prestataire de services":    "artisan",
+  "Auto-entrepreneur / Freelance":        "entreprise",
+  "TPE / PME":                            "entreprise",
+};
+// "Autre" (et toute valeur non listée ci-dessus, ex. si le formulaire évolue)
+// n'a volontairement pas de secteur par défaut : mieux vaut arrêter le
+// script et demander une décision humaine que de deviner un mauvais template.
+
+// ---- 3. Règles générales AbiWeb ----
 
 const REGLES_GENERALES = `
 Stack : HTML/CSS/JS vanilla, sans build ni framework (moteur partagé site-engine.js, contenu dans site-content.js), déploiement Vercel, DNS/domaine via Infomaniak, emailing via Brevo.
@@ -114,19 +144,45 @@ Code propre, composants réutilisables, pas de dépendances inutiles.
 Aucune IA ou fonctionnalité liée à l'IA ne doit être intégrée au site livré au client : l'IA est un outil de production interne uniquement.
 `.trim();
 
-// ---- 3. Génération du prompt --------------------------------------------
+// ---- 4. Génération du prompt --------------------------------------------
+
+function ligne(label, valeur) {
+  return `- ${label} : ${valeur && String(valeur).trim() ? valeur : 'Non renseigné'}`;
+}
 
 function genererPrompt(brief) {
-  const template = TEMPLATES[brief.secteur];
-  if (!template) {
+  const secteur = SECTEUR_PAR_TYPE[brief.type];
+  if (!secteur) {
     throw new Error(
-      `Secteur inconnu : "${brief.secteur}". Secteurs disponibles : ${Object.keys(TEMPLATES).join(', ')}`
+      `Type de structure non reconnu ou non mappé : "${brief.type}". ` +
+      `Valeurs gérées : ${Object.keys(SECTEUR_PAR_TYPE).join(', ')}. ` +
+      `Si le formulaire /devis a changé, mettre à jour SECTEUR_PAR_TYPE dans generateur-prompt.js.`
     );
   }
+  const template = TEMPLATES[secteur];
 
-  const sections = brief.sections_personnalisees && brief.sections_personnalisees.length
-    ? brief.sections_personnalisees
+  const sections = Array.isArray(brief.sections) && brief.sections.length
+    ? brief.sections
     : template.sections;
+
+  const tarifBloc = brief.tarifMode === 'alacarte'
+    ? [
+        `- Mode : sur mesure à la carte (total estimé ${brief.totalEstime || '?'}€)`,
+        `- Modules choisis : ${(brief.modulesChoisis || []).length ? brief.modulesChoisis.join(', ') : 'base seule'}`,
+        `- ⚠️ Pas de correspondance directe avec le système de tiers essentiel/standard/premium : choisir la formule la plus proche des modules ci-dessus, ou activer/désactiver des sections dans site-content.js indépendamment de window.FORMULE.`,
+      ].join('\n')
+    : `- Formule : ${brief.formule || 'Non précisée'}`;
+
+  const formuleWindow = brief.tarifMode === 'alacarte'
+    ? '' // pas de formule fixe, à trancher à la lecture du bloc Tarification ci-dessus
+    : (brief.formule || 'standard').toLowerCase();
+
+  const reseaux = [
+    brief.fbLink    ? `Facebook : ${brief.fbLink}` : null,
+    brief.igLink    ? `Instagram : ${brief.igLink}` : null,
+    brief.ytLink    ? `YouTube : ${brief.ytLink}` : null,
+    brief.autreLink ? `Autre : ${brief.autreLink}` : null,
+  ].filter(Boolean);
 
   return `
 # Prompt généré automatiquement - AbiWeb
@@ -134,28 +190,57 @@ function genererPrompt(brief) {
 ## Contexte général
 ${REGLES_GENERALES}
 
+## Secteur détecté
+"${brief.type}" → template **${secteur}** (${template.ton})
+
 ## Client
-- Nom : ${brief.nom_client}
-- Secteur : ${brief.secteur}
-- Formule : ${brief.formule}
-- Couleurs principales : ${brief.couleurs || 'à définir avec le client'}
-- Ton souhaité : ${template.ton}
+${ligne('Nom / structure', brief.nom)}
+${ligne('Contact', brief.contact)}
+${ligne('Email', brief.email)}
+${ligne('Téléphone', brief.tel)}
+${ligne('Ville', brief.ville)}
+${ligne('Activité', brief.activite)}
+${ligne('Site existant', brief.siteExistant === 'oui' ? `Oui — refonte${brief.siteUrl ? ` (${brief.siteUrl})` : ''}` : 'Non — 1er site')}
+
+## Tarification
+${tarifBloc}
+${ligne('Maintenance', brief.maintenance)}
+${ligne('Domaine', brief.domaine === 'non' ? 'À acheter' : brief.domaine === 'oui' ? `Déjà acheté${brief.domaineNom ? ` (${brief.domaineNom})` : ''}` : 'Adresse gratuite (vercel.app)')}
 
 ## Sections du site
 ${sections.map(s => `- ${s}`).join('\n')}
 
+## Contenu disponible
+${ligne('Photos', `${brief.photos || 'Non précisé'}${brief.photosNb ? ` — ${brief.photosNb}` : ''}`)}
+${ligne('Vidéos', brief.videos)}
+${ligne('Logo', brief.logo)}
+${ligne('Textes déjà rédigés', brief.textes)}
+${reseaux.length ? reseaux.map(r => `- ${r}`).join('\n') : '- Aucun réseau social communiqué'}
+
+## Design
+${ligne('Style souhaité', brief.style)}
+${ligne('Couleur principale', brief.couleur1)}
+${ligne('Couleur secondaire', brief.couleur2)}
+${ligne('Précisions couleurs', brief.couleursTexte)}
+${ligne('Références appréciées', brief.refs)}
+${ligne('À éviter', brief.refNon)}
+
 ## Spécificités du secteur
 ${template.specifique}
 
-## Consignes complémentaires du client
-${brief.consignes_specifiques || 'Aucune consigne particulière.'}
+## Infos complémentaires du client
+${brief.infos && brief.infos.trim() ? brief.infos : 'Aucune.'}
 
 ## Tâche
-Crée le site pour ce client en respectant strictement la structure et les conventions du template "${brief.secteur}" du repo abiweb-templates. Active uniquement les modules correspondant à la formule "${brief.formule}".
+1. Vérifier avant tout que les numéros, adresses, horaires et chiffres ci-dessus sont bien ceux fournis par le client (rien à inventer) — voir shared/SNIPPETS.md, dernière section.
+2. Scaffolder le projet : \`node scripts/new-client.js ${secteur} "${brief.nom || ''}" "${brief.ville || ''}" "${brief.activite || ''}"\`
+   ⚠️ Le 4ᵉ argument attend normalement un intitulé court (ex: "Épicerie fine", "Plombier-chauffagiste") mais "Activité" ci-dessus est le texte libre du client, potentiellement long — après scaffolding, relire les endroits où il apparaît (hero, title, meta description) et le raccourcir si besoin plutôt que de l'utiliser tel quel partout.
+3. Remplir site-content.js dans clients/<slug>/ avec les informations ci-dessus (contact, réseaux, design). ${formuleWindow ? `Régler window.FORMULE sur "${formuleWindow}".` : 'Choisir window.FORMULE selon le bloc Tarification ci-dessus.'}
+4. Ce qui manque encore (adresse complète, horaires précis, tarifs détaillés, textes définitifs, SIRET...) reste à demander explicitement au client — ne pas inventer, voir CHECKLIST.md du dossier généré avant livraison.
 `.trim();
 }
 
-// ---- 4. Exécution en ligne de commande -----------------------------------
+// ---- 5. Exécution en ligne de commande -----------------------------------
 
 const briefPath = process.argv[2];
 if (!briefPath) {
