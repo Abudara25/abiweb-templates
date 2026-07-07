@@ -14,7 +14,7 @@ window.SITE_CONTENT_DEFAULTS = {
     slogan:          "[Accroche · Ex: Devis gratuit, intervention sous 48h]",
     ville:           "[VILLE]",
     annee:           "[ANNÉE DE CRÉATION]",
-    couleurPrimaire: "#ea580c",   // orange par défaut (artisanat, énergie) — à changer
+    couleurPrimaire: "#d97706",   // ambre par défaut (style navy/corporate) — à changer
   },
 
   contact: {

@@ -22,16 +22,18 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --primary:    #ea580c;
-      --primary-dk: #c2410c;
-      --primary-lt: #fff7ed;
-      --primary-md: #fed7aa;
-      --text:       #111827;
-      --muted:      #6b7280;
+      --primary:    #d97706;
+      --primary-dk: #b45309;
+      --primary-lt: #fef3e2;
+      --primary-md: #fcd9a8;
+      --navy:       #16243d;
+      --navy-dark:  #0f1929;
+      --text:       #16243d;
+      --muted:      #5b6472;
       --bg:         #ffffff;
-      --bg2:        #f9fafb;
-      --bg3:        #f3f4f6;
-      --border:     #e5e7eb;
+      --bg2:        #f5f6f8;
+      --bg3:        #e9ebef;
+      --border:     #e2e5ea;
       --radius:     10px;
       --max:        1100px;
     }
@@ -67,9 +69,9 @@
     .garantie-badge { display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 1px solid var(--border); font-size: 0.78rem; font-weight: 600; color: var(--text); padding: 6px 14px; border-radius: 999px; }
     .garantie-badge::before { content: '✓'; color: var(--primary); font-weight: 700; }
     .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .stat-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-align: center; }
-    .stat-n { font-family: 'Poppins', sans-serif; font-size: 1.7rem; font-weight: 800; color: var(--primary); line-height: 1; }
-    .stat-l { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+    .stat-card { background: var(--navy); border: 1px solid var(--navy); border-radius: var(--radius); padding: 20px; text-align: center; }
+    .stat-n { font-family: 'Poppins', sans-serif; font-size: 1.7rem; font-weight: 800; color: #fff; line-height: 1; }
+    .stat-l { font-size: 0.8rem; color: rgba(255,255,255,0.7); margin-top: 4px; }
 
     /* SECTIONS */
     section { padding: 72px 0; }
@@ -81,7 +83,7 @@
     #prestations { background: var(--bg); }
     .prestations-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .prestation-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; transition: box-shadow 0.2s, border-color 0.2s; }
-    .prestation-card:hover { box-shadow: 0 4px 20px rgba(234,88,12,0.1); border-color: var(--primary-md); }
+    .prestation-card:hover { box-shadow: 0 4px 20px rgba(217,119,6,0.1); border-color: var(--primary-md); }
     .prest-num { font-family: 'Poppins', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--primary-md); line-height: 1; margin-bottom: 12px; }
     .prest-nom { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
     .prest-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
@@ -92,7 +94,7 @@
     .tarifs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .tarif-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; display: flex; flex-direction: column; position: relative; transition: box-shadow 0.2s; }
     .tarif-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.07); }
-    .tarif-card.feat { border: 2px solid var(--primary); box-shadow: 0 4px 20px rgba(234,88,12,0.12); }
+    .tarif-card.feat { border: 2px solid var(--primary); box-shadow: 0 4px 20px rgba(217,119,6,0.12); }
     .tarif-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; padding: 4px 16px; border-radius: 999px; white-space: nowrap; }
     .tarif-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
     .tarif-nom { font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 4px; }
@@ -109,7 +111,7 @@
     .tarif-note { font-size: 0.82rem; color: var(--muted); margin-top: 24px; text-align: center; }
 
     /* DEVIS CTA (Standard + Premium) */
-    #devis-cta { background: var(--primary); padding: 40px 0; display: none; }
+    #devis-cta { background: var(--navy); padding: 40px 0; display: none; }
     .devis-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
     .devis-text { font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 700; color: #fff; }
     .devis-text span { display: block; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 400; opacity: 0.85; margin-top: 4px; }
