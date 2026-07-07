@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TEST ROUTINE 2 - Plomberie Dupont — Site officiel</title>
+  <meta name="description" content="Site officiel de TEST ROUTINE 2 - Plomberie Dupont. Prestations, tarifs, zone d'intervention et devis gratuit."/>
+
+  <!-- SEO & Réseaux Sociaux -->
+  <meta name="keywords" content=""/>
+  <meta property="og:title" content=""/>
+  <meta property="og:description" content=""/>
+  <meta property="og:type" content="website"/>
+
+  <!-- Google Search Console -->
+  <meta name="google-site-verification" content=""/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="site-engine.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary:    #1d4ed8;
+      --primary-dk: #173ead;
+      --primary-lt: #eff6ff;
+      --primary-md: #b0c1f1;
+      --navy:       #16243d;
+      --navy-dark:  #0f1929;
+      --text:       #16243d;
+      --muted:      #5b6472;
+      --bg:         #ffffff;
+      --bg2:        #f5f6f8;
+      --bg3:        #e9ebef;
+      --border:     #e2e5ea;
+      --radius:     10px;
+      --max:        1100px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 99; background: #fff; border-bottom: 1px solid var(--border); height: 64px; display: flex; align-items: center; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .nav-logo { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--text); }
+    .nav-logo span { color: var(--primary); }
+    .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+    .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--muted); transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-btn { background: var(--primary); color: #fff; padding: 9px 22px; border-radius: var(--radius); font-size: 0.875rem; font-weight: 600; transition: background 0.15s; display: inline-block; }
+    .nav-btn:hover { background: var(--primary-dk); }
+
+    /* HERO */
+    .hero { background: var(--primary-lt); border-bottom: 1px solid var(--primary-md); padding: 80px 0 72px; }
+    .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--primary-md); color: var(--primary-dk); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
+    .hero h1 { font-family: 'Poppins', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .hero h1 em { font-style: normal; color: var(--primary); }
+    .hero-slogan { font-size: 1.05rem; color: var(--muted); margin-bottom: 24px; line-height: 1.65; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+    .btn-primary { background: var(--primary); color: #fff; padding: 12px 28px; border-radius: var(--radius); font-weight: 600; font-size: 0.9rem; transition: background 0.15s; display: inline-block; }
+    .btn-primary:hover { background: var(--primary-dk); }
+    .btn-outline { background: #fff; color: var(--text); border: 1px solid var(--border); padding: 11px 27px; border-radius: var(--radius); font-weight: 500; font-size: 0.9rem; transition: border-color 0.15s; display: inline-block; }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+    .hero-garanties { display: flex; gap: 10px; flex-wrap: wrap; }
+    .garantie-badge { display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 1px solid var(--border); font-size: 0.78rem; font-weight: 600; color: var(--text); padding: 6px 14px; border-radius: 999px; }
+    .garantie-badge::before { content: '✓'; color: var(--primary); font-weight: 700; }
+    .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .stat-card { background: var(--navy); border: 1px solid var(--navy); border-radius: var(--radius); padding: 20px; text-align: center; }
+    .stat-n { font-family: 'Poppins', sans-serif; font-size: 1.7rem; font-weight: 800; color: #fff; line-height: 1; }
+    .stat-l { font-size: 0.8rem; color: rgba(255,255,255,0.7); margin-top: 4px; }
+
+    /* SECTIONS */
+    section { padding: 72px 0; }
+    .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+    .section-title { font-family: 'Poppins', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 40px; }
+    .section-title em { font-style: normal; color: var(--primary); }
+
+    /* PRESTATIONS */
+    #prestations { background: var(--bg); }
+    .prestations-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .prestation-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; transition: box-shadow 0.2s, border-color 0.2s; }
+    .prestation-card:hover { box-shadow: 0 4px 20px rgba(217,119,6,0.1); border-color: var(--primary-md); }
+    .prest-num { font-family: 'Poppins', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--primary-md); line-height: 1; margin-bottom: 12px; }
+    .prest-nom { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .prest-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+    .prest-tag { display: inline-block; background: var(--primary-lt); color: var(--primary-dk); font-size: 0.75rem; font-weight: 600; padding: 3px 12px; border-radius: 999px; }
+
+    /* TARIFS */
+    #tarifs { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .tarifs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .tarif-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; display: flex; flex-direction: column; position: relative; transition: box-shadow 0.2s; }
+    .tarif-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.07); }
+    .tarif-card.feat { border: 2px solid var(--primary); box-shadow: 0 4px 20px rgba(217,119,6,0.12); }
+    .tarif-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; padding: 4px 16px; border-radius: 999px; white-space: nowrap; }
+    .tarif-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .tarif-nom { font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 4px; }
+    .tarif-prix { font-family: 'Poppins', sans-serif; font-size: 2.6rem; font-weight: 800; color: var(--primary); line-height: 1; margin: 10px 0 4px; }
+    .tarif-prix span { font-size: 1.1rem; }
+    .tarif-period { font-size: 0.78rem; color: var(--muted); margin-bottom: 24px; }
+    .tarif-divider { height: 1px; background: var(--border); margin-bottom: 20px; }
+    .tarif-avantages { list-style: none; display: flex; flex-direction: column; gap: 10px; flex: 1; margin-bottom: 28px; }
+    .tarif-avantages li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.875rem; color: var(--text); }
+    .tarif-avantages li::before { content: '✓'; color: var(--primary); font-weight: 700; flex-shrink: 0; }
+    .tarif-btn { display: block; text-align: center; padding: 11px; border-radius: var(--radius); font-weight: 600; font-size: 0.9rem; border: 1.5px solid var(--border); color: var(--text); transition: all 0.15s; cursor: pointer; }
+    .tarif-card.feat .tarif-btn { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .tarif-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .tarif-note { font-size: 0.82rem; color: var(--muted); margin-top: 24px; text-align: center; }
+
+    /* DEVIS CTA (Standard + Premium) */
+    #devis-cta { background: var(--navy); padding: 40px 0; display: none; }
+    .devis-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .devis-text { font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 700; color: #fff; }
+    .devis-text span { display: block; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 400; opacity: 0.85; margin-top: 4px; }
+    .btn-white { background: #fff; color: var(--primary); padding: 12px 28px; border-radius: var(--radius); font-weight: 700; font-size: 0.9rem; display: inline-block; transition: opacity 0.15s; }
+    .btn-white:hover { opacity: 0.9; }
+
+    /* CONTACT */
+    #contact { background: var(--bg); }
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .ci { display: flex; align-items: flex-start; gap: 16px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; }
+    .ci-icon { width: 40px; height: 40px; background: var(--primary-lt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .ci-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 3px; }
+    .ci-val { font-size: 0.925rem; font-weight: 500; color: var(--text); }
+    .ci-val a { color: var(--primary); }
+
+    /* RÉSEAUX (Standard + Premium) */
+    #reseaux { background: var(--bg2); border-top: 1px solid var(--border); padding: 36px 0; display: none; }
+    .reseaux-inner { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .reseaux-label { font-size: 0.875rem; font-weight: 600; color: var(--muted); }
+    .reseaux-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .reseau-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.85rem; font-weight: 500; color: var(--text); transition: all 0.15s; }
+    .reseau-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* GALERIE (Premium) */
+    #galerie { background: var(--bg); border-top: 1px solid var(--border); display: none; }
+    .galerie-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .galerie-item { aspect-ratio: 1; background: var(--bg3); border-radius: 8px; overflow: hidden; }
+    .galerie-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .galerie-item:hover img { transform: scale(1.05); }
+
+    /* DOCUMENTS (Premium) */
+    #documents { background: var(--bg2); border-top: 1px solid var(--border); display: none; }
+    .docs-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .doc-item { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; background: #fff; border-bottom: 1px solid var(--border); }
+    .doc-item:last-child { border: none; }
+    .doc-titre { font-weight: 500; font-size: 0.95rem; }
+    .doc-btn { background: var(--primary-lt); color: var(--primary-dk); padding: 7px 18px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; transition: background 0.15s; display: inline-block; }
+    .doc-btn:hover { background: var(--primary-md); }
+
+    /* FOOTER */
+    footer { background: var(--text); padding: 32px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-logo { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.1rem; color: #fff; }
+    .footer-logo span { color: var(--primary); }
+    .footer-info { font-size: 0.8rem; color: rgba(255,255,255,0.45); line-height: 1.7; }
+    .footer-info a { color: rgba(255,255,255,0.6); }
+    .footer-info a:hover { color: #fff; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      section { padding: 48px 0; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .prestations-grid, .tarifs-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container nav-inner">
+    <div class="nav-logo" id="nav-nom">NOM <span>ARTISAN</span></div>
+    <ul class="nav-links">
+      <li><a href="#prestations">Prestations</a></li>
+      <li><a href="#tarifs">Tarifs</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-btn">Demander un devis</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">
+          <span id="hero-metier">Plombier-chauffagiste</span> · <span id="hero-ville">Argenteuil</span>
+        </div>
+        <h1 id="hero-title">[NOM DE L'<em>ARTISAN</em>]</h1>
+        <p class="hero-slogan" id="hero-slogan">[Accroche]</p>
+        <div class="hero-btns">
+          <a href="#contact" class="btn-primary">Demander un devis gratuit</a>
+          <a href="#prestations" class="btn-outline">Voir les prestations</a>
+        </div>
+        <div class="hero-garanties" id="hero-garanties"></div>
+      </div>
+      <div class="hero-stats" id="hero-stats"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRESTATIONS -->
+<section id="prestations">
+  <div class="container">
+    <div class="section-label">Nos prestations</div>
+    <div class="section-title">Ce que nous <em>proposons</em></div>
+    <div class="prestations-grid" id="prestations-grid"></div>
+  </div>
+</section>
+
+<!-- TARIFS -->
+<section id="tarifs">
+  <div class="container">
+    <div class="section-label">Tarifs</div>
+    <div class="section-title">Nos <em>formules</em></div>
+    <div class="tarifs-grid" id="tarifs-grid"></div>
+    <div class="tarif-note" id="tarif-note"></div>
+  </div>
+</section>
+
+<!-- CTA DEVIS (Standard + Premium) -->
+<div id="devis-cta">
+  <div class="container">
+    <div class="devis-inner">
+      <div class="devis-text">
+        Obtenez votre devis en ligne
+        <span>Réponse rapide · Sans engagement</span>
+      </div>
+      <div id="devis-btns"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Contact</div>
+    <div class="section-title">Nous <em>contacter</em></div>
+    <div class="contact-grid">
+      <div class="ci"><div class="ci-icon">📍</div><div><div class="ci-label">Secteur</div><div class="ci-val" id="c-adresse">[ADRESSE / SECTEUR]</div></div></div>
+      <div class="ci"><div class="ci-icon">📞</div><div><div class="ci-label">Téléphone</div><div class="ci-val"><a id="c-tel" href="#">[TEL]</a></div></div></div>
+      <div class="ci"><div class="ci-icon">✉️</div><div><div class="ci-label">Email</div><div class="ci-val"><a id="c-email" href="#">[EMAIL]</a></div></div></div>
+      <div class="ci"><div class="ci-icon">🕐</div><div><div class="ci-label">Horaires</div><div class="ci-val" id="c-horaires">[HORAIRES]</div></div></div>
+      <div class="ci"><div class="ci-icon">🗺️</div><div><div class="ci-label">Zone d'intervention</div><div class="ci-val" id="c-zone">[ZONE]</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉSEAUX (Standard + Premium) -->
+<div id="reseaux">
+  <div class="container">
+    <div class="reseaux-inner">
+      <div class="reseaux-label">Suivez-nous</div>
+      <div class="reseaux-links" id="reseaux-links"></div>
+    </div>
+  </div>
+</div>
+
+<!-- GALERIE (Premium) -->
+<section id="galerie">
+  <div class="container">
+    <div class="section-label">Réalisations</div>
+    <div class="section-title">Nos <em>chantiers</em></div>
+    <div class="galerie-grid" id="galerie-grid"></div>
+  </div>
+</section>
+
+<!-- DOCUMENTS (Premium) -->
+<section id="documents">
+  <div class="container">
+    <div class="section-label">Documents</div>
+    <div class="section-title">Garanties & <em>certifications</em></div>
+    <div class="docs-list" id="docs-list"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo" id="footer-logo">NOM <span>ARTISAN</span></div>
+      <div class="footer-info">
+        <span id="footer-metier">[Métier]</span> · <span id="footer-ville">Argenteuil</span><br>
+        Site réalisé par <a href="https://abiweb.fr" target="_blank">AbiWeb</a> ·
+        <a href="#" id="footer-mentions-link">Mentions légales</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL MENTIONS LÉGALES -->
+<div class="modal-overlay" id="modal-mentions">
+  <div class="modal-box">
+    <button class="modal-close" id="modal-mentions-close" aria-label="Fermer">&times;</button>
+    <h3>Mentions légales</h3>
+    <div id="mentions-content"></div>
+  </div>
+</div>
+
+<!-- BANDEAU CONSENTEMENT COOKIES -->
+<div class="cookie-banner" id="cookie-banner">
+  <p>Ce site utilise Google Analytics pour mesurer son audience. Vous pouvez accepter ou refuser ce suivi.</p>
+  <div class="cookie-actions">
+    <button id="cookie-refuse">Refuser</button>
+    <button id="cookie-accept">Accepter</button>
+  </div>
+</div>
+
+<script src="site-content.js"></script>
+<script src="site-engine.js"></script>
+<script>
+(async () => {
+  const c = await window.loadSiteContent();
+  const f = window.FORMULE;
+
+  window.AbiWebEngine.init(c);
+
+  document.documentElement.style.setProperty('--primary', c.artisan.couleurPrimaire);
+
+  // Nom
+  const nom = c.artisan.nom;
+  const words = nom.trim().split(' ');
+  const w1 = words.slice(0, Math.ceil(words.length / 2)).join(' ');
+  const w2 = words.slice(Math.ceil(words.length / 2)).join(' ') || w1;
+  document.getElementById('nav-nom').innerHTML = w1 + ' <span>' + w2 + '</span>';
+  document.getElementById('footer-logo').innerHTML = w1 + ' <span>' + w2 + '</span>';
+  document.getElementById('hero-title').innerHTML = w1 + ' <em>' + (w2 || w1) + '</em>';
+  document.getElementById('hero-metier').textContent = c.artisan.metier;
+  document.getElementById('hero-ville').textContent = c.artisan.ville;
+  document.getElementById('hero-slogan').textContent = c.artisan.slogan;
+  document.getElementById('footer-metier').textContent = c.artisan.metier;
+  document.getElementById('footer-ville').textContent = c.artisan.ville;
+  if (!c.seo || !c.seo.titre) document.title = c.artisan.nom + ' — ' + c.artisan.metier;
+
+  // Stats
+  document.getElementById('hero-stats').innerHTML = c.stats.map(s =>
+    `<div class="stat-card"><div class="stat-n">${s.valeur}</div><div class="stat-l">${s.label}</div></div>`
+  ).join('');
+
+  // Garanties (bandeau de réassurance, toujours affiché)
+  document.getElementById('hero-garanties').innerHTML = (c.garanties || []).map(g =>
+    `<span class="garantie-badge">${g}</span>`
+  ).join('');
+
+  // Prestations
+  document.getElementById('prestations-grid').innerHTML = c.prestations.map((p, i) => `
+    <div class="prestation-card">
+      <div class="prest-num">0${i + 1}</div>
+      <div class="prest-nom">${p.titre}</div>
+      <div class="prest-desc">${p.description}</div>
+      <div class="prest-tag">${p.tag}</div>
+    </div>
+  `).join('');
+
+  // Contact
+  document.getElementById('c-adresse').textContent = c.contact.adresse;
+  document.getElementById('c-tel').textContent = c.contact.telephone;
+  document.getElementById('c-tel').href = 'tel:' + c.contact.telephone.replace(/\s/g, '');
+  document.getElementById('c-email').textContent = c.contact.email;
+  document.getElementById('c-email').href = 'mailto:' + c.contact.email;
+  document.getElementById('c-horaires').textContent = c.contact.horairesInfo;
+  document.getElementById('c-zone').textContent = c.contact.zoneIntervention;
+
+  // Tarifs
+  document.getElementById('tarifs-grid').innerHTML = c.tarifs.map(t => `
+    <div class="tarif-card${t.vedette ? ' feat' : ''}">
+      ${t.vedette ? '<div class="tarif-badge">⭐ Le plus choisi</div>' : ''}
+      <div class="tarif-label">Estimation</div>
+      <div class="tarif-nom">${t.nom}</div>
+      <div class="tarif-prix"><span>€</span>${t.prix}</div>
+      <div class="tarif-period">à partir de</div>
+      <div class="tarif-divider"></div>
+      <ul class="tarif-avantages">${t.avantages.map(a => `<li>${a}</li>`).join('')}</ul>
+      <div class="tarif-btn">${c.lienDevis ? `<a href="${c.lienDevis}" target="_blank" style="color:inherit">Demander un devis</a>` : 'Nous contacter'}</div>
+    </div>
+  `).join('');
+  document.getElementById('tarif-note').textContent = c.tarifNote || '';
+
+  // Standard + Premium
+  if (f === 'standard' || f === 'premium') {
+    if (c.lienDevis) {
+      document.getElementById('devis-cta').style.display = 'block';
+      document.getElementById('devis-btns').innerHTML = `<a href="${c.lienDevis}" target="_blank" class="btn-white">Demander en ligne</a>`;
+    }
+
+    const rx = [];
+    if (c.lienFacebook)  rx.push(`<a href="${c.lienFacebook}"  target="_blank" class="reseau-btn">Facebook</a>`);
+    if (c.lienInstagram) rx.push(`<a href="${c.lienInstagram}" target="_blank" class="reseau-btn">Instagram</a>`);
+    if (rx.length) { document.getElementById('reseaux').style.display = 'block'; document.getElementById('reseaux-links').innerHTML = rx.join(''); }
+  }
+
+  // Premium
+  if (f === 'premium') {
+    if (c.galerie?.length) {
+      document.getElementById('galerie').style.display = 'block';
+      document.getElementById('galerie-grid').innerHTML = c.galerie.map(img =>
+        `<div class="galerie-item"><img src="${img}" alt="" loading="lazy"/></div>`
+      ).join('');
+    }
+    if (c.documents?.length) {
+      document.getElementById('documents').style.display = 'block';
+      document.getElementById('docs-list').innerHTML = c.documents.map(d =>
+        `<div class="doc-item"><div class="doc-titre">${d.titre}</div><a href="${d.fichier}" download class="doc-btn">Télécharger</a></div>`
+      ).join('');
+    }
+  }
+})();
+</script>
+</body>
+</html>
