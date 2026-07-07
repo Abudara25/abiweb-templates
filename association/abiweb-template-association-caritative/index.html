@@ -22,12 +22,16 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --primary:      #b91c1c;
-      --primary-dk:   #991b1b;
-      --primary-lt:   #fef2f2;
-      --primary-md:   #fee2e2;
-      --accent-blue:  #2563eb;
-      --accent-green: #16a34a;
+      --primary:         #b91c1c;
+      --primary-dk:      #991b1b;
+      --primary-lt:      #fef2f2;
+      --primary-md:      #fee2e2;
+      --accent-blue:     #2563eb;
+      --accent-blue-lt:  #eff6ff;
+      --accent-blue-md:  #dbeafe;
+      --accent-green:    #16a34a;
+      --accent-green-lt: #f0fdf4;
+      --accent-green-md: #dcfce7;
       --text:         #111827;
       --muted:        #6b7280;
       --bg:           #ffffff;
@@ -47,7 +51,7 @@
     .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
     .nav-logo { display: flex; align-items: center; gap: 10px; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--text); }
     .nav-logo img { height: 36px; width: auto; }
-    .nav-logo span { color: var(--primary); }
+    .nav-logo span { color: var(--accent-green); }
     .nav-links { display: flex; gap: 26px; list-style: none; align-items: center; }
     .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--muted); transition: color 0.15s; }
     .nav-links a:hover { color: var(--text); }
@@ -55,11 +59,11 @@
     .nav-btn:hover { background: var(--primary-dk); }
 
     /* HERO (Accueil) */
-    .hero { background: var(--primary-lt); border-bottom: 1px solid var(--primary-md); padding: 80px 0 56px; }
+    .hero { background: var(--accent-blue-lt); border-bottom: 1px solid var(--accent-blue-md); padding: 80px 0 56px; }
     .hero-inner { max-width: 760px; }
     .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--primary-md); color: var(--primary); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
     .hero h1 { font-family: 'Poppins', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 16px; }
-    .hero h1 em { font-style: normal; color: var(--primary); }
+    .hero h1 em { font-style: normal; color: var(--accent-green); }
     .hero-accroche { font-size: 1.05rem; color: var(--muted); margin-bottom: 32px; line-height: 1.65; }
     .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
     .btn-primary { background: var(--primary); color: #fff; padding: 12px 28px; border-radius: var(--radius); font-weight: 600; font-size: 0.9rem; transition: background 0.15s; display: inline-block; }
@@ -73,8 +77,14 @@
     .section-title { font-family: 'Poppins', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 24px; }
     .section-title em { font-style: normal; color: var(--primary); }
 
+    /* Rotation des couleurs de marque par section, pour éviter le tout-rouge */
+    #bureau .section-label, #bureau .section-title em,
+    #don .section-label, #don .section-title em { color: var(--accent-blue); }
+    #missions .section-label, #missions .section-title em,
+    #contact .section-label, #contact .section-title em { color: var(--accent-green); }
+
     /* APERÇU MISSIONS (Accueil) */
-    #missions-apercu { background: var(--primary-lt); padding: 0 0 72px; }
+    #missions-apercu { background: var(--bg); padding: 8px 0 72px; }
     .missions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .mission-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: box-shadow 0.2s, border-color 0.2s; }
     .mission-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); border-color: var(--primary-md); }
