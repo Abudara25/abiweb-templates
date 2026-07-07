@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TEST ROUTINE - Boulangerie Saint-Gratien — Site officiel</title>
+  <meta name="description" content="Site officiel de TEST ROUTINE - Boulangerie Saint-Gratien. Rayons, sélection produits, horaires et contact."/>
+
+  <!-- SEO & Réseaux Sociaux -->
+  <meta name="keywords" content=""/>
+  <meta property="og:title" content=""/>
+  <meta property="og:description" content=""/>
+  <meta property="og:type" content="website"/>
+
+  <!-- Google Search Console -->
+  <meta name="google-site-verification" content=""/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="site-engine.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary:    #7c3aed;
+      --primary-dk: #6d28d9;
+      --primary-lt: #f5f3ff;
+      --primary-md: #ddd6fe;
+      --text:       #111827;
+      --muted:      #6b7280;
+      --bg:         #ffffff;
+      --bg2:        #f9fafb;
+      --bg3:        #f3f4f6;
+      --border:     #e5e7eb;
+      --radius:     10px;
+      --max:        1100px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 99; background: #fff; border-bottom: 1px solid var(--border); height: 64px; display: flex; align-items: center; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .nav-logo { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--text); }
+    .nav-logo span { color: var(--primary); }
+    .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+    .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--muted); transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-btn { background: var(--primary); color: #fff; padding: 9px 22px; border-radius: var(--radius); font-size: 0.875rem; font-weight: 600; transition: background 0.15s; display: inline-block; }
+    .nav-btn:hover { background: var(--primary-dk); }
+
+    /* HERO */
+    .hero { background: var(--primary-lt); border-bottom: 1px solid var(--primary-md); padding: 80px 0 72px; }
+    .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--primary-md); color: var(--primary-dk); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
+    .hero h1 { font-family: 'Poppins', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .hero h1 em { font-style: normal; color: var(--primary); }
+    .hero-slogan { font-size: 1.05rem; color: var(--muted); margin-bottom: 24px; line-height: 1.65; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+    .btn-primary { background: var(--primary); color: #fff; padding: 12px 28px; border-radius: var(--radius); font-weight: 600; font-size: 0.9rem; transition: background 0.15s; display: inline-block; }
+    .btn-primary:hover { background: var(--primary-dk); }
+    .btn-outline { background: #fff; color: var(--text); border: 1px solid var(--border); padding: 11px 27px; border-radius: var(--radius); font-weight: 500; font-size: 0.9rem; transition: border-color 0.15s; display: inline-block; }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+    .hero-paiements { display: flex; gap: 10px; flex-wrap: wrap; }
+    .paiement-badge { display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 1px solid var(--border); font-size: 0.78rem; font-weight: 600; color: var(--text); padding: 6px 14px; border-radius: 999px; }
+    .paiement-badge::before { content: '✓'; color: var(--primary); font-weight: 700; }
+    .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .stat-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-align: center; }
+    .stat-n { font-family: 'Poppins', sans-serif; font-size: 1.7rem; font-weight: 800; color: var(--primary); line-height: 1; }
+    .stat-l { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+
+    /* SECTIONS */
+    section { padding: 72px 0; }
+    .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+    .section-title { font-family: 'Poppins', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 40px; }
+    .section-title em { font-style: normal; color: var(--primary); }
+
+    /* RAYONS */
+    #rayons { background: var(--bg); }
+    .rayons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .rayon-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; transition: box-shadow 0.2s, border-color 0.2s; }
+    .rayon-card:hover { box-shadow: 0 4px 20px rgba(124,58,237,0.1); border-color: var(--primary-md); }
+    .rayon-num { font-family: 'Poppins', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--primary-md); line-height: 1; margin-bottom: 12px; }
+    .rayon-nom { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .rayon-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+    .rayon-tag { display: inline-block; background: var(--primary-lt); color: var(--primary-dk); font-size: 0.75rem; font-weight: 600; padding: 3px 12px; border-radius: 999px; }
+
+    /* COUPS DE CŒUR */
+    #coups-de-coeur { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .produits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .produit-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; display: flex; flex-direction: column; position: relative; transition: box-shadow 0.2s; }
+    .produit-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.07); }
+    .produit-card.feat { border: 2px solid var(--primary); box-shadow: 0 4px 20px rgba(124,58,237,0.12); }
+    .produit-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; padding: 4px 16px; border-radius: 999px; white-space: nowrap; }
+    .produit-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .produit-nom { font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 4px; }
+    .produit-prix { font-family: 'Poppins', sans-serif; font-size: 2.6rem; font-weight: 800; color: var(--primary); line-height: 1; margin: 10px 0 4px; }
+    .produit-prix span { font-size: 1.1rem; }
+    .produit-divider { height: 1px; background: var(--border); margin: 20px 0; }
+    .produit-avantages { list-style: none; display: flex; flex-direction: column; gap: 10px; flex: 1; margin-bottom: 28px; }
+    .produit-avantages li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.875rem; color: var(--text); }
+    .produit-avantages li::before { content: '✓'; color: var(--primary); font-weight: 700; flex-shrink: 0; }
+    .produit-btn { display: block; text-align: center; padding: 11px; border-radius: var(--radius); font-weight: 600; font-size: 0.9rem; border: 1.5px solid var(--border); color: var(--text); transition: all 0.15s; cursor: pointer; }
+    .produit-card.feat .produit-btn { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .produit-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .produit-note { font-size: 0.82rem; color: var(--muted); margin-top: 24px; text-align: center; }
+
+    /* CTA COMMANDE (Standard + Premium) */
+    #commande-cta { background: var(--primary); padding: 40px 0; display: none; }
+    .commande-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .commande-text { font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 700; color: #fff; }
+    .commande-text span { display: block; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 400; opacity: 0.85; margin-top: 4px; }
+    .btn-white { background: #fff; color: var(--primary); padding: 12px 28px; border-radius: var(--radius); font-weight: 700; font-size: 0.9rem; display: inline-block; transition: opacity 0.15s; }
+    .btn-white:hover { opacity: 0.9; }
+
+    /* CONTACT */
+    #contact { background: var(--bg); }
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .ci { display: flex; align-items: flex-start; gap: 16px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; }
+    .ci-icon { width: 40px; height: 40px; background: var(--primary-lt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .ci-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 3px; }
+    .ci-val { font-size: 0.925rem; font-weight: 500; color: var(--text); }
+    .ci-val a { color: var(--primary); }
+
+    /* RÉSEAUX (Standard + Premium) */
+    #reseaux { background: var(--bg2); border-top: 1px solid var(--border); padding: 36px 0; display: none; }
+    .reseaux-inner { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .reseaux-label { font-size: 0.875rem; font-weight: 600; color: var(--muted); }
+    .reseaux-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .reseau-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.85rem; font-weight: 500; color: var(--text); transition: all 0.15s; }
+    .reseau-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* GALERIE (Premium) */
+    #galerie { background: var(--bg); border-top: 1px solid var(--border); display: none; }
+    .galerie-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .galerie-item { aspect-ratio: 1; background: var(--bg3); border-radius: 8px; overflow: hidden; }
+    .galerie-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .galerie-item:hover img { transform: scale(1.05); }
+
+    /* DOCUMENTS (Premium) */
+    #documents { background: var(--bg2); border-top: 1px solid var(--border); display: none; }
+    .docs-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .doc-item { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; background: #fff; border-bottom: 1px solid var(--border); }
+    .doc-item:last-child { border: none; }
+    .doc-titre { font-weight: 500; font-size: 0.95rem; }
+    .doc-btn { background: var(--primary-lt); color: var(--primary-dk); padding: 7px 18px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; transition: background 0.15s; display: inline-block; }
+    .doc-btn:hover { background: var(--primary-md); }
+
+    /* FOOTER */
+    footer { background: var(--text); padding: 32px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-logo { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.1rem; color: #fff; }
+    .footer-logo span { color: var(--primary); }
+    .footer-info { font-size: 0.8rem; color: rgba(255,255,255,0.45); line-height: 1.7; }
+    .footer-info a { color: rgba(255,255,255,0.6); }
+    .footer-info a:hover { color: #fff; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      section { padding: 48px 0; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .rayons-grid, .produits-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container nav-inner">
+    <div class="nav-logo" id="nav-nom">NOM <span>BOUTIQUE</span></div>
+    <ul class="nav-links">
+      <li><a href="#rayons">Rayons</a></li>
+      <li><a href="#coups-de-coeur">Sélection</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-btn">Nous trouver</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">
+          <span id="hero-type">Boulangerie-pâtisserie artisanale</span> · <span id="hero-ville">Saint-Gratien</span>
+        </div>
+        <h1 id="hero-title">[NOM DE LA <em>BOUTIQUE</em>]</h1>
+        <p class="hero-slogan" id="hero-slogan">[Accroche]</p>
+        <div class="hero-btns">
+          <a href="#rayons" class="btn-primary">Découvrir nos rayons</a>
+          <a href="#contact" class="btn-outline">Infos pratiques</a>
+        </div>
+        <div class="hero-paiements" id="hero-paiements"></div>
+      </div>
+      <div class="hero-stats" id="hero-stats"></div>
+    </div>
+  </div>
+</div>
+
+<!-- RAYONS -->
+<section id="rayons">
+  <div class="container">
+    <div class="section-label">Nos rayons</div>
+    <div class="section-title">Ce que vous <em>trouverez</em></div>
+    <div class="rayons-grid" id="rayons-grid"></div>
+  </div>
+</section>
+
+<!-- COUPS DE CŒUR -->
+<section id="coups-de-coeur">
+  <div class="container">
+    <div class="section-label">Sélection</div>
+    <div class="section-title">Nos coups de <em>cœur</em></div>
+    <div class="produits-grid" id="produits-grid"></div>
+    <div class="produit-note" id="produit-note"></div>
+  </div>
+</section>
+
+<!-- CTA COMMANDE (Standard + Premium) -->
+<div id="commande-cta">
+  <div class="container">
+    <div class="commande-inner">
+      <div class="commande-text">
+        Commandez en ligne ou en click & collect
+        <span>Réponse rapide · Retrait en boutique possible</span>
+      </div>
+      <div id="commande-btns"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Infos pratiques</div>
+    <div class="section-title">Nous <em>trouver</em></div>
+    <div class="contact-grid">
+      <div class="ci"><div class="ci-icon">📍</div><div><div class="ci-label">Adresse</div><div class="ci-val" id="c-adresse">[ADRESSE]</div></div></div>
+      <div class="ci"><div class="ci-icon">📞</div><div><div class="ci-label">Téléphone</div><div class="ci-val"><a id="c-tel" href="#">[TEL]</a></div></div></div>
+      <div class="ci"><div class="ci-icon">✉️</div><div><div class="ci-label">Email</div><div class="ci-val"><a id="c-email" href="#">[EMAIL]</a></div></div></div>
+      <div class="ci"><div class="ci-icon">🕐</div><div><div class="ci-label">Horaires</div><div class="ci-val" id="c-horaires">[HORAIRES]</div></div></div>
+      <div class="ci"><div class="ci-icon">📅</div><div><div class="ci-label">Fermeture</div><div class="ci-val" id="c-fermeture">[FERMETURE]</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉSEAUX (Standard + Premium) -->
+<div id="reseaux">
+  <div class="container">
+    <div class="reseaux-inner">
+      <div class="reseaux-label">Suivez-nous</div>
+      <div class="reseaux-links" id="reseaux-links"></div>
+    </div>
+  </div>
+</div>
+
+<!-- GALERIE (Premium) -->
+<section id="galerie">
+  <div class="container">
+    <div class="section-label">Photos</div>
+    <div class="section-title">Notre <em>boutique</em></div>
+    <div class="galerie-grid" id="galerie-grid"></div>
+  </div>
+</section>
+
+<!-- DOCUMENTS (Premium) -->
+<section id="documents">
+  <div class="container">
+    <div class="section-label">Téléchargements</div>
+    <div class="section-title">Catalogue & <em>documents</em></div>
+    <div class="docs-list" id="docs-list"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo" id="footer-logo">NOM <span>BOUTIQUE</span></div>
+      <div class="footer-info">
+        <span id="footer-type">[Type de commerce]</span> · <span id="footer-ville">Saint-Gratien</span><br>
+        Site réalisé par <a href="https://abiweb.fr" target="_blank">AbiWeb</a> ·
+        <a href="#" id="footer-mentions-link">Mentions légales</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL MENTIONS LÉGALES -->
+<div class="modal-overlay" id="modal-mentions">
+  <div class="modal-box">
+    <button class="modal-close" id="modal-mentions-close" aria-label="Fermer">&times;</button>
+    <h3>Mentions légales</h3>
+    <div id="mentions-content"></div>
+  </div>
+</div>
+
+<!-- BANDEAU CONSENTEMENT COOKIES -->
+<div class="cookie-banner" id="cookie-banner">
+  <p>Ce site utilise Google Analytics pour mesurer son audience. Vous pouvez accepter ou refuser ce suivi.</p>
+  <div class="cookie-actions">
+    <button id="cookie-refuse">Refuser</button>
+    <button id="cookie-accept">Accepter</button>
+  </div>
+</div>
+
+<script src="site-content.js"></script>
+<script src="site-engine.js"></script>
+<script>
+(async () => {
+  const c = await window.loadSiteContent();
+  const f = window.FORMULE;
+
+  window.AbiWebEngine.init(c);
+
+  document.documentElement.style.setProperty('--primary', c.commerce.couleurPrimaire);
+
+  // Nom
+  const nom = c.commerce.nom;
+  const words = nom.trim().split(' ');
+  const w1 = words.slice(0, Math.ceil(words.length / 2)).join(' ');
+  const w2 = words.slice(Math.ceil(words.length / 2)).join(' ') || w1;
+  document.getElementById('nav-nom').innerHTML = w1 + ' <span>' + w2 + '</span>';
+  document.getElementById('footer-logo').innerHTML = w1 + ' <span>' + w2 + '</span>';
+  document.getElementById('hero-title').innerHTML = w1 + ' <em>' + (w2 || w1) + '</em>';
+  document.getElementById('hero-type').textContent = c.commerce.type;
+  document.getElementById('hero-ville').textContent = c.commerce.ville;
+  document.getElementById('hero-slogan').textContent = c.commerce.slogan;
+  document.getElementById('footer-type').textContent = c.commerce.type;
+  document.getElementById('footer-ville').textContent = c.commerce.ville;
+  if (!c.seo || !c.seo.titre) document.title = c.commerce.nom + ' — ' + c.commerce.ville;
+
+  // Stats
+  document.getElementById('hero-stats').innerHTML = c.stats.map(s =>
+    `<div class="stat-card"><div class="stat-n">${s.valeur}</div><div class="stat-l">${s.label}</div></div>`
+  ).join('');
+
+  // Moyens de paiement (bandeau de réassurance, toujours affiché)
+  document.getElementById('hero-paiements').innerHTML = (c.moyensPaiement || []).map(m =>
+    `<span class="paiement-badge">${m}</span>`
+  ).join('');
+
+  // Rayons
+  document.getElementById('rayons-grid').innerHTML = c.rayons.map((r, i) => `
+    <div class="rayon-card">
+      <div class="rayon-num">0${i + 1}</div>
+      <div class="rayon-nom">${r.titre}</div>
+      <div class="rayon-desc">${r.description}</div>
+      <div class="rayon-tag">${r.tag}</div>
+    </div>
+  `).join('');
+
+  // Contact
+  document.getElementById('c-adresse').textContent   = c.contact.adresse;
+  document.getElementById('c-tel').textContent       = c.contact.telephone;
+  document.getElementById('c-tel').href              = 'tel:' + c.contact.telephone.replace(/\s/g, '');
+  document.getElementById('c-email').textContent     = c.contact.email;
+  document.getElementById('c-email').href            = 'mailto:' + c.contact.email;
+  document.getElementById('c-horaires').textContent  = c.contact.horaires;
+  document.getElementById('c-fermeture').textContent = c.contact.fermeture;
+
+  // Coups de cœur
+  document.getElementById('produits-grid').innerHTML = c.coupsDeCoeur.map(p => `
+    <div class="produit-card${p.vedette ? ' feat' : ''}">
+      ${p.vedette ? '<div class="produit-badge">⭐ Le plus vendu</div>' : ''}
+      <div class="produit-label">Sélection</div>
+      <div class="produit-nom">${p.nom}</div>
+      <div class="produit-prix"><span>€</span>${p.prix}</div>
+      <div class="produit-divider"></div>
+      <ul class="produit-avantages">${p.avantages.map(a => `<li>${a}</li>`).join('')}</ul>
+      <div class="produit-btn">${c.lienCommande ? `<a href="${c.lienCommande}" target="_blank" style="color:inherit">Commander</a>` : 'Nous contacter'}</div>
+    </div>
+  `).join('');
+  document.getElementById('produit-note').textContent = c.coupsDeCoeurNote || '';
+
+  // Standard + Premium
+  if (f === 'standard' || f === 'premium') {
+    if (c.lienCommande) {
+      document.getElementById('commande-cta').style.display = 'block';
+      document.getElementById('commande-btns').innerHTML = `<a href="${c.lienCommande}" target="_blank" class="btn-white">Commander en ligne</a>`;
+    }
+
+    const rx = [];
+    if (c.lienFacebook)  rx.push(`<a href="${c.lienFacebook}"  target="_blank" class="reseau-btn">Facebook</a>`);
+    if (c.lienInstagram) rx.push(`<a href="${c.lienInstagram}" target="_blank" class="reseau-btn">Instagram</a>`);
+    if (rx.length) { document.getElementById('reseaux').style.display = 'block'; document.getElementById('reseaux-links').innerHTML = rx.join(''); }
+  }
+
+  // Premium
+  if (f === 'premium') {
+    if (c.galerie?.length) {
+      document.getElementById('galerie').style.display = 'block';
+      document.getElementById('galerie-grid').innerHTML = c.galerie.map(img =>
+        `<div class="galerie-item"><img src="${img}" alt="" loading="lazy"/></div>`
+      ).join('');
+    }
+    if (c.documents?.length) {
+      document.getElementById('documents').style.display = 'block';
+      document.getElementById('docs-list').innerHTML = c.documents.map(d =>
+        `<div class="doc-item"><div class="doc-titre">${d.titre}</div><a href="${d.fichier}" download class="doc-btn">Télécharger</a></div>`
+      ).join('');
+    }
+  }
+})();
+</script>
+</body>
+</html>
