@@ -1,0 +1,30 @@
+name: Notify on scaffold PR/issue
+
+on:
+  pull_request:
+    types: [opened]
+  issues:
+    types: [opened]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send notification email
+        env:
+          NOTIFY_SECRET: ${{ secrets.NOTIFY_SECRET }}
+          TYPE: ${{ github.event_name == 'pull_request' && 'pr' || 'issue' }}
+          CLIENT_NOM: ${{ github.event.pull_request.title || github.event.issue.title }}
+          URL: ${{ github.event.pull_request.html_url || github.event.issue.html_url }}
+        run: |
+          curl -s -X POST https://www.abiweb.fr/api/notify-pr \
+            -H "Content-Type: application/json" \
+            -d "$(node -e '
+              const body = {
+                type: process.env.TYPE,
+                clientNom: process.env.CLIENT_NOM,
+                url: process.env.URL,
+                secret: process.env.NOTIFY_SECRET,
+              };
+              process.stdout.write(JSON.stringify(body));
+            ')"
